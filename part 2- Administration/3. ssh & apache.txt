@@ -1,0 +1,86 @@
+#SSH : is a secure shell , port 22. user for remote access pc and file transfer. 
+
+#Apache : is a web server , port 80. use for file transfer... 
+
+--------------------------------------Apache------------------------------------------------
+
+option : >>> service apache2 status|start|stop|restart
+
+start : service apache2 start 
+
+
+──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
+└─$ service apache2 status
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/lib/systemd/system/apache2.service; disabled; preset: disabled)
+     Active: active (running) since Fri 2024-02-16 22:42:56 EST; 4s ago
+       Docs: https://httpd.apache.org/docs/2.4/
+    Process: 6929 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUCCESS)
+   Main PID: 6959 (apache2)
+      Tasks: 7 (limit: 4554)
+     Memory: 27.2M
+        CPU: 226ms
+     CGroup: /system.slice/apache2.service
+             ├─6959 /usr/sbin/apache2 -k start
+             ├─6973 /usr/sbin/apache2 -k start
+             ├─6974 /usr/sbin/apache2 -k start
+             ├─6975 /usr/sbin/apache2 -k start
+             ├─6976 /usr/sbin/apache2 -k start
+             ├─6977 /usr/sbin/apache2 -k start
+             └─6978 /usr/sbin/apache2 -k start
+
+Feb 16 22:42:56 kali systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Feb 16 22:42:56 kali apachectl[6946]: AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'Serv>
+Feb 16 22:42:56 kali systemd[1]: Started apache2.service - The Apache HTTP Server.
+lines 1-21
+
+#after start apache2 > 127.0.0.1:80
+
+#and the host folder is : 
+----------------------------
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
+└─$ ls /var/www/html/
+index.html  index.nginx-debian.html
+
+--------------------------------------------
+# we can also show the the host folder with kali_ip:80 > http://192.168.174.128/:80
+
+------------------------------------------------------------------------------------------------------------------------------------
+#write something then covert into file . >>> echo "hello downloadme" > downloadme
+--------------------------------------------
+
+>>> sudo -i 
+>>> cd /var/www/html/
+>>> echo "downloadme" > downloadme.txt
+
+#check the file on the web server : 
+----------------------------------------
+>>> 127.0.0.1/downloadme
+
+------------------------------------------------------------------------------------------------------------------------------------
+#wget : file transfer over the http/https/ftp etc .  now we can download the downloadme file from the host folder > 
+
+------------------------
+┌──(shuvo㉿kali)-[~/Linux]
+└─$ wget 192.168.174.128/downloadme
+--2024-02-16 23:02:25--  http://192.168.174.128/downloadme
+Connecting to 192.168.174.128:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 17
+Saving to: ‘downloadme’
+
+downloadme                                                  100%[=========================================================================================================================================>]      17  --.-KB/s    in 0s      
+
+2024-02-16 23:02:25 (2.90 MB/s) - ‘downloadme’ saved [17/17]
+
+                                                                                                                                                                                                                                              
+┌──(shuvo㉿kali)-[~/Linux]
+└─$ ls
+downloadme
+
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+

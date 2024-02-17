@@ -1,0 +1,12 @@
+Nano is file editor .... another command is pico ....
+-----------------------------------------------------------
+1. >>> nano file_name.extention | for help or show the menw , clt+G.
+2. >>> write inside words.... clt+0 > write out / save.
+3. >>> clt+x > exit 
+4. >>> clt+k > cut full a line 
+5. >>> clt+u > undo the edit ./ pase the the copy
+6. >>> if we write some thing on the file and save without change the file which we already write then , clt+c ,clt+x, type=> N 
+       if we want to save with the last change then , clt+c ,clt+x, type => Y
+7. >>> to search any work , clt+w . And type the word whatever we want to search ... find the next search work ,alt+w.
+
+
