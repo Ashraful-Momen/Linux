@@ -75,6 +75,10 @@ Rules updated (v6)
 # now download winSCP and connet the kali root with it . then can able to show the folder of kali ....
 
 -------------------------------------------------------------
+#for connecting from other linux machine : ssh userName@ip_address . 
+>>> password.
+Fun!
+-------------------------------------------------------------
 -----------------------et/ssh/sshd_config file permission --------------------------------------
 ================================================================================================
 ┌──(shuvo㉿kali)-[~]
