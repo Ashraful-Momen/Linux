@@ -1,0 +1,69 @@
+#user and group managing 
+----------------------------------
+>>> whoami | display the current user name . 
+>>> w   | show the logged on and what's they are doing .
+------------------------------------------------------
+>>> cat /etc/passwd | see the list of user . 
+-------------------------------------------
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
+└─$ cat /etc/passwd         
+root:x:0:0:root:/root:/usr/bin/zsh
+shuvo:x:1000:1000:shuvo,,,:/home/shuvo:/usr/bin/zsh
+
+/user/bin/zsh | show the name of user 
+
+-------------------------------------------------
+>>> cat /etc/shadow | see the encrypted passwd. 
+-----------------------------------
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
+└─$ sudo cat /etc/shadow     
+
+root:$y$j9T$Zi1Nk5bCvXqtJLR8PR0op1$P/MPitBdJzN9P4aLETDksiTuzA4.jiywyY17mEl8auD:19772:0:99999:7:::
+
+shuvo:$y$j9T$O1AlDVguFcZ3Dm9v4nG2s1$lA0pnWXaxrQH6Df8cB0KWaCMkoV6RYKrEcXHu3oYwvD:19767:0:99999:7:::
+
+-------------------------------------------------
+>>> id | show the group of username 
+
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
+└─$ id      
+uid=1000(shuvo) gid=1000(shuvo) groups=1000(shuvo),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),100(users),101(netdev),113(wireshark),116(bluetooth),127(scanner),135(kaboxer)
+-------------------------------------------------
+>>> groups group_name | display the name of group.
+
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
+└─$ groups tom
+groups: ‘tom’: no such user
+--------------------------------------------------
+>>> cat /etc/group | show the user_groups and user apps list of group which already using and installed. 
+
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
+└─$ cat /etc/group 
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:shuvo
+---------------------------------------------------*******************----------------------------------------------------------
+---------------------------------------------------Add User Delet User----------------------------------------------------------
+
+>>> adduser user_name | add user with the home of directory.
+>>> deluser --remove-home user_name | delete user with home of directory.
+
+>>>> useradd user_name | add user without home dir .
+>>>> userdel user_anme | del user without home dir . 
+
+switch one user to another : 
+--------------------------------
+>>>> su user_name 
+
+--------------------------------
+#check the user list >>>> cat /etc/passwd 
+
+---------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------
+          
