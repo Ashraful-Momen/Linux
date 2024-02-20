@@ -1,0 +1,26 @@
+#show the current mac address : 
+--------------------------------
+
+>>> sudo macchanger -s eth0
+
+#show the list of mac addrss: 
+-----------------------------
+>>> sudo macchanger -l eth0 
+
+
+#change the mac_address: 
+------------------------
+
+>>> sudo macchanger -a eth0 paste_the_mac_address
+
+#change the ip_address: 
+-------------------------
+>>> sudo macchanger -a eth0 write_your_ip_address
+
+#show Your ip and mac : 
+----------------------
+>>>ifconfig
+
+#Now back to the previous Ip and Mac address : 
+----------------------------------------------
+>>>sudo macchanger -p eth0
