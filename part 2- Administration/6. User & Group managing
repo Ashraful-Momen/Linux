@@ -61,6 +61,123 @@ switch one user to another :
 #check the user list >>>> cat /etc/passwd 
 
 ---------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------Group--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------
+>>>id | display the group of username 
+>>>sudo  groups user_name | same as above (different output)
+>>> cat /etc/group | see  lists of groups
+-------------------------------------------
+┌──(ashraful㉿kali)-[/home/shuvo/Desktop/Linux]
+└─$ ls /home/
+ashraful  momen  shuvo | "those the name of groups"
+----------------------------------------------------
+>>> addgroup cats | create a new gropu cat 
+>>> usermod -g cat tom | change tom group 
+>>> delgroup tom | delete the group 
+
+---------------------------------------------------------------------------------------------------------------------------------
+└─$ id
+uid=1000(shuvo) gid=1000(shuvo) groups=1000(shuvo),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),100(users),101(netdev),113(wireshark),116(bluetooth),127(scanner),135(kaboxer)
+                                                                                                                                                                                                        
+┌──(shuvo㉿kali)-[~/Desktop/Linux]
+└─$ groups shuvo
+shuvo : shuvo adm dialout cdrom floppy sudo audio dip video plugdev users netdev wireshark bluetooth scanner kaboxer
+                                                                                                                                                                                                        
+┌──(shuvo㉿kali)-[~/Desktop/Linux]
+└─$ cat /etc/group
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:shuvo
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mail:x:8:
+news:x:9:
+uucp:x:10:
+man:x:12:
+proxy:x:13:
+kmem:x:15:
+dialout:x:20:shuvo
+fax:x:21:
+voice:x:22:
+cdrom:x:24:shuvo
+floppy:x:25:shuvo
+tape:x:26:
+sudo:x:27:shuvo
+audio:x:29:shuvo
+dip:x:30:shuvo
+www-data:x:33:
+backup:x:34:
+operator:x:37:
+list:x:38:
+irc:x:39:
+src:x:40:
+shadow:x:42:
+utmp:x:43:
+video:x:44:shuvo
+sasl:x:45:
+plugdev:x:46:shuvo
+staff:x:50:
+games:x:60:
+users:x:100:shuvo
+nogroup:x:65534:
+systemd-journal:x:999:
+systemd-network:x:998:
+crontab:x:997:
+input:x:996:
+sgx:x:995:
+kvm:x:994:
+render:x:993:
+netdev:x:101:shuvo
+mysql:x:102:
+tss:x:103:
+systemd-timesync:x:992:
+redsocks:x:104:
+kismet:x:105:
+_gophish:x:106:
+messagebus:x:107:
+_ssh:x:108:
+ssl-cert:x:109:postgres
+redis:x:110:_gvm
+plocate:x:111:
+mosquitto:x:112:
+wireshark:x:113:shuvo
+tcpdump:x:114:
+rdma:x:115:
+bluetooth:x:116:shuvo
+i2c:x:117:
+avahi:x:118:
+stunnel4:x:991:stunnel4
+Debian-snmp:x:119:
+_gvm:x:120:
+sslh:x:121:
+postgres:x:122:
+pipewire:x:123:
+sambashare:x:990:
+inetsim:x:124:
+lightdm:x:125:
+geoclue:x:126:
+scanner:x:127:saned,shuvo
+saned:x:128:
+polkitd:x:989:
+rtkit:x:129:
+colord:x:130:
+Debian-gdm:x:131:
+nm-openvpn:x:132:
+nm-openconnect:x:133:
+kali-trusted:x:134:
+shuvo:x:1000:
+kaboxer:x:135:shuvo
+fwupd-refresh:x:988:
+                                                                                                                                                                                                        
+┌──(shuvo㉿kali)-[~/Desktop/Linux]
+└─$ 
+---------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------
