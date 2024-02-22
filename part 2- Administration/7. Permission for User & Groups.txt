@@ -1,0 +1,84 @@
+#permission for users and their groups: 
+--------------------------------------
+
+
+
+r-read, w-write, x-execute and u-user/owner , g-group , o-other , a-all.
+----------------------------------------------------------------------
+"+" - add permission , "-" - remove the permission, "=" - Make this only permission.
+----------------------------------------------------------------------
+
+>dir_name/permission(rwx)_user(owner)-group(permission)-other(permission)
+
+
+drwxr-xr-r | dir_read_execute_write_root-execute_root-read
+
+-----------------------------------------------------------------
+-------------------------Chmod -change mode(permission)----------------------------------------
+>>> chmod ugoa +-= rwx fileName | syntax for change the permission.
+
+>>> chmod u+x someFile | Make somefile executable for owner/user.
+
+>>> chmod a+rw somefile | make read_write permission for everyone_all.
+-----------------------------------------------------------------
+#ashraful user give the permission to the momen user : 
+
+>>>sudo -i 
+>>>  
+>>> sudo usermod -aG ashraful momen | here 'ashraful' is the group name where add the 'momen' username.
+
+-----------------------------------------------------------------
+#see the users list of a group: 
+--------------------------------
+>>>> getent group ashraful | cut -d: -f4
+-----------------------------------------------------------------
+#see the file permission : 
+-----------------------------
+>>> ls -l 
+
+----------------------------------------------------------------
+┌──(ashraful㉿kali)-[/home/shuvo/Desktop/Linux]
+└─$ ls -l
+total 12
+-rw-r--r-- 1 shuvo shuvo 1088 Feb 21 22:28 '7.User & Group permission'
+drwxr-xr-x 2 shuvo shuvo 4096 Feb 14 22:23 'part 1'
+drwxr-xr-x 2 shuvo shuvo 4096 Feb 19 22:53 'part 2- Administration'
+
+┌──(ashraful㉿kali)-[/home/shuvo/Desktop/Linux]
+└─$ cd /home/ashraful
+
+┌──(ashraful㉿kali)-[~]
+└─$ ls
+
+┌──(ashraful㉿kali)-[~]
+└─$ ls -l
+total 0
+
+┌──(ashraful㉿kali)-[~]
+└─$ nano ashraful-file.txt
+
+┌──(ashraful㉿kali)-[~]
+└─$ cat ashraful-file.txt 
+say meow
+
+┌──(ashraful㉿kali)-[~]
+└─$ ls -l
+total 4
+-rw-r--r-- 1 ashraful ashraful 9 Feb 21 22:31 ashraful-file.txt
+
+┌──(ashraful㉿kali)-[~]
+└─$ chmod g+w ashraful-file.txt 
+
+┌──(ashraful㉿kali)-[~]
+└─$ ls -l
+total 4
+-rw-rw-r-- 1 ashraful ashraful 9 Feb 21 22:31 ashraful-file.txt   |after give the permission of group
+
+
+----------------------------------------------------------------
+
+
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+
