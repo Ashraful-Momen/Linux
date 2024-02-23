@@ -79,7 +79,7 @@ total 4
 #give a file permission to the specific user (shuvo) : 
 ----------------------------------------------
 chown shuvo /home/ashraful/permission_check.txt
-chmod u+rwx /home/ashraful/permission_check.txt
+chmod u+rwx /home/ashraful/permission_check.txt (for all users.)
 --------------------------------------------------
 #give the permission for the all user : 
 ------------------------------------------
