@@ -1,0 +1,35 @@
+process : 
+---------
+>>> ps - | list process of current session.
+
+>>> ps -f | List process of full formate .
+
+>>> ps -e | List all process.
+
+>>> ps -u user_name | List process of user_name.
+
+>>> ps -p [PID] | Display process information of PID
+----------------------------------------------------------------------------
+-----------------------------Process Management-----------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+#Back and Forground: 
+----------------------
+>>> command & | Run the command in BackGround 
+
+>>> jobs | List jobs running in BackGround 
+
+>>> fg [n] | Froground job number [n]
+----------------------------------------------------------------------------
+--------------------------Process Management : Tmux--------------------------------------------------
+----------------------------------------------------------------------------
+>>> tmux | back & forground like previous jobs. 
+    >>>clt+b , then D | detuch tmux. 
+
+>>> tmux list-sessions - List sessions. 
+
+>>> tmux attach | attach session 
+
+>>> nohup command & | run command in background even session in background .
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
