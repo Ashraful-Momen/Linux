@@ -1,0 +1,84 @@
+#Piping & Command Changing: 
+--------------------------------
+#show the file of nmap : 
+-------------------------
+
+>>> ls /usr/share/nmap/scripts/ 
+
+#using the Piping : less=> 
+----------------------------
+
+>>> ls /usr/share/nmap/scripts/ | less 
+
+#using grep for finding 'words' : 
+------------------------------------
+
+>>> ls /usr/share/nmap/scripts | grep 'words_for_finding'
+
+>>> ls /usr/share/nmap/scripts | grep 'brute':
+---------------------------------------------
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
+└─$ ls /usr/share/nmap/scripts | grep brute
+
+
+oracle-sid-brute.nse
+pcanywhere-brute.nse
+pgsql-brute.nse
+pop3-brute.nse
+redis-brute.nse
+rexec-brute.nse
+rlogin-brute.nse
+rpcap-brute.nse
+rsync-brute.nse
+rtsp-url-brute.nse
+sip-brute.nse
+smb-brute.nse
+smtp-brute.nse
+snmp-brute.nse
+socks-brute.nse
+ssh-brute.nse
+svn-brute.nse
+telnet-brute.nse
+tso-brute.nse
+vmauthd-brute.nse
+vnc-brute.nse
+xmpp-brute.nse
+                                                                                
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
+└─$ 
+
+
+
+----------------------------------------------------------------------------------------------------------------
+#count the words of a file : 
+-------------------------------
+>>> wc -l target.txt  [show the total content inside the file ]
+----------------------------------------------------------------------------------------------------------------
+#find with the grep in file : 
+------------------------------
+>>>grep 'finding_keywords' 'file_name'
+
+>>> grep 10.10.10 target.txt 
+
+--------------------------------------
+
+#if we want to cut some portion from a file into another file : 
+------------------------------------------------------------------
+
+#suppose we want to get 25/open smtp ports all collection from output.gnmap into another file then we use : 
+
+>>> grep 25/open output.gnmap | cut -d " " -f 2        [here d-> delemeter meands 'space' and '-f 2' means cut all content before second space ]
+
+----------------------------------------------------------------------------------------------------------------
+
+#using 'sort' for sorting content of files and unique '-u' in Piping command : 
+---------------------------------------------------------------------------------
+
+grep 25/open output.gnmap | cut -d " " -f 2 | sort -u      [sort  - user for sorting and -u user for remove the duplicate elements]
+
+#now save the output into 25-open.txt file so that: 
+------------------------------------------------------
+
+grep 25/open output.gnmap | cut -d " " -f 2 | sort -u > 25-open.txt 
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
