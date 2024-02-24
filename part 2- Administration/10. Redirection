@@ -1,0 +1,14 @@
+# Redirection is a method to save or append content into a file.
+#suppose if useri file inside content is 1,2,3 and user2 conent is 4,5,6 and we want to save it to new file all_user:
+>>>> cat user1 user2 > all_user
+# if we want to append user3 inside content is : 7,8,9
+>>> cat user3 >> all_user
+so we have to use ">>" sign for append
+
+# show the total number of content: 
+
+
+>>> cat -n all_user
+
+-------------------------------------------------------
+'<' this sign is user for , if some command written inside the file then execute the command from a file ....
