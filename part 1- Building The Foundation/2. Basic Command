@@ -1,0 +1,50 @@
+#Basic Command of Linux : 
+---------------------------
+
+>>>clt + c => kill command 
+
+>>>clt + z => stop (suspended) . run in the background .
+
+>>>fg %[jobs_number] => which is running in the background . 
+
+>>>clear => clear the content from terminal .
+
+>>>exit => exit from terminal . 
+
+---------------------------------------------------------
+# check the host live or not (packet send or not ): 
+-------------------------------------------------
+
+>>> ping url_or_domainName => send the packet and check the host. 
+
+>>> Tab => for auto complete the command . 
+
+>>> cd => change the directory 
+
+>>> cd . => current directory 
+
+>>> cd .. => parent directory from current directory .
+
+>>> pwd => show the current directory . 
+
+>>> history => show the list of user command which already used . 
+
+>>> clt + r => search the command history whiched alredy used in shell.
+
+---------------------------------------------------------------------
+terminal shortcut :
+---------------------
+
+>>> clt + a => Move cursor to the begining . 
+
+>>> clt + e => Move cursor to the end . 
+
+>>> clt + k => kill = Cut the line . 
+
+>>> clt + y => yang = past . 
+
+>>> clt + l => clear the screen . 
+
+--------------------------------------------------
+
+

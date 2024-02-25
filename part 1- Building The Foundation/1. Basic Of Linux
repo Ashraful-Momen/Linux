@@ -1,0 +1,26 @@
+#Basic of Linux Command : 
+--------------------------
+#update the system : >>> apt update 
+
+#upgrade the system : >>> apt full-upgrade -y
+
+#dist Upgrade : >>> apt dist-upgrade
+-------------------------------------------------------------------------------------------------- 
+**** if you forget the password then => 
+--------------------------------------
+when boot up the system -> select advance mode + press "E"
+
+--> Linux Line "rw shingle initrd=/install/initrd.gz init=bin/bash" + FIO ... 
+
+--> root passwd __ ___ -> "exec /sbin/init" . Done 
+
+-------------------------------Identify the user by sign------------------------------------------------------------------- 
+
+root@user:~# | this the root user . 
+
+user@:~$ | non-root user.
+
+#terminal zoom in => clt+shift and_press '='
+----------------
+#terminal zoom out => clt and_press '-'
+-------------------------------------------------------------------------------------------------- 

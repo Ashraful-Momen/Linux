@@ -1,0 +1,64 @@
+The file system of the Linux : 
+---------------------------------
+
+
+                                                     "/"
+-------------------------------------------------------------------------------------------------------------------
+|           |               |               |               |                   |
+
+/bin        /etc            /home          /Sbin            /temp               /root
+"user       config_file     user's_home    System_binary    /Temporary_file     all file show 
+binary"
+
+
+----------------------------------------------------------------------------------------------
+Linux command is the case_sensetive : 
+--------------------------------------
+>>> command option  argument 
+>>> ls  -arl        /Desktop
+
+
+----------------------------------------------------------------------------------------------
+file related command: 
+---------------------
+>>> pwd => show the current directory . 
+
+>>> mkdir => make directory. 
+
+>>> touch => create file . 
+
+>>> ls   => show the content of a folder / dir . 
+
+>>> cat file_name => show the content inside of the file . 
+
+>>> less => show the file content in buttom part . 
+
+>>> head => default display the first 10 lines .  
+
+>>> tail -h => defualt display the first 10 lines . 
+
+>>> tail -f => follow the end of a chaning of file 
+----------------------------------------------------------------------------------------------
+file related more command => 
+-----------------------------
+>>> ls -l => log listing [show the content of the file ]
+
+>>> ls -a => list the hidden all files . 
+
+>>> ls -r => list the reverse name . 
+
+>>> ls -t => list the new_file name first . 
+
+>>> ls -rt => list the old_file name first . 
+----------------------------------------------------------------------------------------------
+check the position of the folder: 
+-----------------------------------
+>>> cd . => current directory . 
+
+>>> cd .. => parent directory move / back . 
+
+----------------------------------------------------------------------------------------------
+#show the history of terminal command : 
+-----------------------------------------
+>>>sudo  cat bash_history  => retain the last 500 command used by the users . 
+
