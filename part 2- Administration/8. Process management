@@ -26,7 +26,23 @@ process :
 >>> jobs | List jobs running in BackGround 
 
 >>> fg %[n] | Froground job number %[n]
+
+
 ----------------------------------------------------------------------------
+#make the running command in background : 
+
+>>> ping google.com 
+
+>>> clt+z   | jobs make it suspended and background 
+
+>>> bg 
+
+>>> jobs | for chcek the jobs 
+
+>>> fg %[number_of_jobs]
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
 --------------------------Process Management : Tmux--------------------------------------------------
 ----------------------------------------------------------------------------
 >>> tmux | back & forground like previous jobs. 
