@@ -39,23 +39,18 @@ file related command:
 
 >>> tail -f => follow the end of a chaning of file 
 ----------------------------------------------------------------------------------------------
-file related more command => 
------------------------------
->>> ls -l => log listing [show the content of the file ]
 
->>> ls -a => list the hidden all files . 
-
->>> ls -r => list the reverse name . 
-
->>> ls -t => list the new_file name first . 
-
->>> ls -rt => list the old_file name first . 
-----------------------------------------------------------------------------------------------
 check the position of the folder: 
 -----------------------------------
 >>> cd . => current directory . 
 
 >>> cd .. => parent directory move / back . 
+
+>>> cd ~ => goto home for normal user. 
+
+>>> cd # => goto home for the root . 
+
+>>> cd / => goto the root dir. 
 
 ----------------------------------------------------------------------------------------------
 #show the history of terminal command : 
