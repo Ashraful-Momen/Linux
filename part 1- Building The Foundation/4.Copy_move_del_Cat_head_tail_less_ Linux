@@ -1,0 +1,85 @@
+#show the history of linux command of users : 
+---------------------------------------------
+>>> cat .bash_history | show the command of users used. 
+
+>>> less .bash_history | efficient way to show [option => shift+page_up/page_down button]
+
+>>> head .bash_history | show the first 10 command's that user used. 
+
+>>> head -15 .bash_history | show the first command . 
+
+>>> tail .bash_history | show the last 10 commands 
+
+>>> tail -20 .bash_history | show the last 20 commands 
+
+>>> tail -f .bash_history | show last change of the file .
+
+===========================================================
+-------------------------------------------------------------------------------------
+---------------------------------make file and folder----------------------------------------------------
+-------------------------------------------------------------------------------------
+>>> mkdir folder_name 
+
+>>> mkdir folder_name/folder_name | create folder with the parent 
+
+>>> touch file_name
+
+>>> touch folder_name/file_name 
+
+
+-------------------------------------------------------------------------------------
+-----------------------------------show the content of folder--------------------------------------------------
+-------------------------------------------------------------------------------------
+>>> ls -l | list show the content of file . 
+
+>>> ls -a | list show the hidden file of the dir . 
+
+>>> ls -r | list show as the reverse name 
+
+>>> ls -t | list show the new file first 
+
+>>> ls -tr | list show the old folder first 
+-------------------------------------------------------------------------------------
+-------------------------------Copy------------------------------------------------------
+-------------------------------------------------------------------------------------
+
+>>> cp [dir_files]  [destination] 
+
+>>> cp /tem/testfile.txt /Documents/Shuvo/
+
+>>> cp /tem/testfile /Documents/Shuvo/fileNameChange.txt | testfile.txt name will be change as fileNameChange.txt
+
+>>> cp -r /tem/dir1/ Documents/  | copy all the content . 
+
+>>> cp -r /tem/dir1/   Documents/dir_different_name.txt 
+
+>>> cp -i /tem/test/fileName Documents/  | ask before copy 
+
+>>> cp /tem/move_item  ~/Document/  | copy the home/Documents. 
+
+-------------------------------------------------------------------------------------
+-----------------------------Move--------------------------------------------------------
+-------------------------------------------------------------------------------------
+>>> mv [source] [destination]
+
+>>> mv -i /dir/file_name Document/dir1/   | ask before move "yes" or "no". 
+
+>>> mv /root/files  .   | move content to current folder 
+
+>>> mv /tem/move_item  ~/Document/  | move the home/Documents. 
+
+
+-------------------------------------------------------------------------------------
+---------------------------------Remove----------------------------------------------------
+-------------------------------------------------------------------------------------
+>>> rm /tmp/testFile  | remove file 
+
+>>> rm /tem/testdir | remove directory . 
+
+>>> rm -r /tem/testDir | remove dir with contents . 
+
+>>> rm -r -i /tmp/testDir | remove before ask . 
+
+>>> rm -rf /tmp/testDir -force remove . 
+-------------------------------------------------------------------------------------
+
