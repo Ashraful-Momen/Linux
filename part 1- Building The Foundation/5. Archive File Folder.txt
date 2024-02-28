@@ -1,0 +1,242 @@
+#Archive means backup the file with minimal size with different formate (gzip, bzip.... tar ... etc). 
+
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+#Archiving tool such as Tar(take Archive):
+---------------------------------------------
+>>> tar c | create Archive. 
+>>> tar a or 'r'| append to Archive. 
+>>> tar t | list content of  Archive. 
+>>> tar x | extract Archive. 
+>>> tar v | verbose. actually show what file or dir archiving. 
+>>> tar f file | file to use
+
+------------------------------------------------------------------------------------------------------------
+*** don't user the "-" as option for tar cvf for tar. 
+------------------------------------------------------
+#suppose we create 3 file and 3 folder for archiving with tar -> 
+------------------------------------------------------------------
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ ls   
+dir1  dir2  dir3  file1  file2  file3
+
+==================================================================
+
+#take archiving dir1 dir2 , file1, file2
+
+-----------------------------------------
+
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ tar cvf archive.tar dir1 dir2 file1 file2
+dir1/
+dir2/
+file1
+file2
+
+-----------------------------------------
+#show file_folder name which already archive in -> archive.tar 
+
+>>> tar tvf _archive_file_name 
+>>> tar tvf archive.tar
+
+
+-----------------------------
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ tar tvf archive.tar                      
+drwxr-xr-x shuvo/shuvo       0 2024-02-27 23:01 dir1/
+drwxr-xr-x shuvo/shuvo       0 2024-02-27 23:01 dir2/
+-rw-r--r-- shuvo/shuvo       0 2024-02-27 23:01 file1
+-rw-r--r-- shuvo/shuvo       0 2024-02-27 23:02 file2
+
+-------------------------------------------------------
+#we want to append dir3 and file3 to the archive.tar file 
+
+>>> tar rvf archive.tar file3 
+
+>>> tar rvf archive.tar dir3 
+
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ tar rvf archive.tar dir3 file3
+dir3/
+file3
+
+#show the archive file or folder in archive.tar 
+-----------------------------------------------
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ tar tvf archive.tar           
+drwxr-xr-x shuvo/shuvo       0 2024-02-27 23:01 dir1/
+drwxr-xr-x shuvo/shuvo       0 2024-02-27 23:01 dir2/
+-rw-r--r-- shuvo/shuvo       0 2024-02-27 23:01 file1
+-rw-r--r-- shuvo/shuvo       0 2024-02-27 23:02 file2
+drwxr-xr-x shuvo/shuvo       0 2024-02-27 23:01 dir3/
+-rw-r--r-- shuvo/shuvo       0 2024-02-27 23:02 file3
+   
+
+
+
+-------------------------------------------------------
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ mkdir backup
+                                                                                
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ ls   
+archive.tar  backup  dir1  dir2  dir3  file1  file2  file3
+                                                                                
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ cp archive.tar backup/
+                                                                                
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ ls
+archive.tar  backup  dir1  dir2  dir3  file1  file2  file3
+                                                                                
+┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
+└─$ cd backup             
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ ls
+archive.tar
+
+-------------------------------------------------------
+#if we want to extrat dir3 and file3 form archive.tar 
+
+
+>>> tar xvf archive.tar dir3
+>>> tar xvf archive.tar file3 
+
+
+──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ ls
+archive.tar
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ tar xvf archive.tar dir3
+dir3/
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ ls
+archive.tar  dir3
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ tar xvf archive.tar file3
+file3
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ ls
+archive.tar  dir3  file3
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ tar tvf archive.tar      
+drwxr-xr-x shuvo/shuvo       0 2024-02-27 23:01 dir1/
+drwxr-xr-x shuvo/shuvo       0 2024-02-27 23:01 dir2/
+-rw-r--r-- shuvo/shuvo       0 2024-02-27 23:01 file1
+-rw-r--r-- shuvo/shuvo       0 2024-02-27 23:02 file2
+drwxr-xr-x shuvo/shuvo       0 2024-02-27 23:01 dir3/
+-rw-r--r-- shuvo/shuvo       0 2024-02-27 23:02 file3
+                                                                                
+
+
+-------------------------------------------------------
+#if we want to extract everything form archive.tar 
+
+>>> tar xvf archive.tar 
+
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ ls 
+archive.tar  dir3  file3
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ rm file3
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ rmdir dir3
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ tar xvf archive.tar      
+dir1/
+dir2/
+file1
+file2
+dir3/
+file3
+                                                                                
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ ls
+archive.tar  dir1  dir2  dir3  file1  file2  file3
+    
+-------------------------------------------------------
+#if we want to extract archive.tar file in a folder
+
+>>> tar xvf archive.tar -C Destination 
+>>> tar xvf archive.tar -C ~/Desktop/Destination/ 
+
+┌──(shuvo㉿kali)-[~/…/Linux/part 1/practise_archive/backup]
+└─$ tar xvf archive.tar -C ~/Desktop/                   
+dir1/
+dir2/
+file1
+file2
+dir3/
+file3
+
+-------------------------------------------------------
+-------------------------------------------------------
+#compress: 
+------------
+>>> tar zcvf compressed.tar.gz file1 file2 
+>>> tar jcvf compressed.tar.bz2 file1 file2 
+
+------------------------------------------------------
+
+#List:
+--------------- 
+>>>tar ztvf compressed.tar.gz
+>>>tar jtvf compressed.tar.b21
+
+-----------------------------------------------------
+#extract gzip file all: 
+--------------------
+>>> tar zxvf file_name.tar.gz 
+
+#extract gzip specific_file all: 
+--------------------
+>>> tar zxvf file_name.tar.gz specific_file_name
+
+
+#extract bzip file all: 
+--------------------
+>>> tar jxvf file_name.tar.bz2 
+
+#extract gzip specific_file all: 
+--------------------
+>>> tar jxvf file_name.tar.bz2 specific_file_name
+
+#extract in Destination dir: 
+--------------------------
+
+>>> tar zxvf file_name.tar.gzip -C /Destination/ 
+>>> tar jxvf file_name.tar.bz2 -C /Destination/ 
+
+
+
+
+
+-------------------------------------------------------
+   
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+#classic compression in Linux : 
+-------------------------------
+>>> gzip | classic compression in Linux
+>>> d    | decompress file 
+
+-----------------------------------------------
+>>> bzip2  | more compression than gzip but more time to compress. 
+>>> d      | decompress file . 
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
