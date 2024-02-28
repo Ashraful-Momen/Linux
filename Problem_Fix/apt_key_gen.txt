@@ -1,1 +1,2 @@
-sudo apt install -y --reinstall open-vm-tools-desktop
+sudo apt remove kali-archive-keyring kali-desktop-core kali-desktop-xfce kali-desktop-gnome
+sudo apt install kali-archive-keyring kali-desktop-core kali-desktop-xfce kali-desktop-gnome
