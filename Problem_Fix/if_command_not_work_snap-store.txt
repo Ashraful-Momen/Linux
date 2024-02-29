@@ -1,0 +1,16 @@
+Command 'snap-store' is available in '/snap/bin/snap-store'
+The command could not be located because '/snap/bin' is not included in the PATH environment variable.
+snap-store: command not found
+ChatGPT
+It seems like the snap-store command is not found because the directory where Snap executables are located (/snap/bin) is not included in the PATH environment variable. You can either run the command with its full path or add the directory to your PATH variable.
+
+Here's how you can add /snap/bin to your PATH variable temporarily for the current session:
+
+bash
+Copy code
+export PATH="$PATH:/snap/bin"
+After running this command, you should be able to run snap-store without issues. If you want to make this change permanent, you can add the above line to your shell's configuration file (e.g., ~/.bashrc for Bash) so that it is executed every time you start a new shell session.
+
+
+
+
