@@ -1,0 +1,3 @@
+
+#to run the snap form termianl .... same thing have to do the other terminator. 
+export PATH="$PATH:/snap/bin"
