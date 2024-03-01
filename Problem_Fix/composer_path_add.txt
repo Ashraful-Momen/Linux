@@ -1,4 +1,14 @@
-after install the compoer then we can add those apthy for locate....
+#after install the php with xamp then we can install the composer:
+
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+
+
+#after successfully install the composer then we can show a file :   composer.phar, 
+we can run the composer with php >>>> php composer.phar --version.
+
+after install the compoer then we can add those pathy for locate....
 
 
 typically included in the PATH:
