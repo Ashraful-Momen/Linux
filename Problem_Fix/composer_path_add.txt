@@ -1,3 +1,6 @@
+after install the compoer then we can add those apthy for locate....
+
+
 typically included in the PATH:
 
 bash
