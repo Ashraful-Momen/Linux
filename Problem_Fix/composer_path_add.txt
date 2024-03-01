@@ -27,6 +27,10 @@ composer --version
 
 If Composer is recognized and the version information is displayed, then the symlink setup was successful.
 
+
+then we can install the laravel 7 with the composer command => composer create-project --prefer-dist laravel/laravel my-laravel-app "7.*"
+
+
 =============================================full chat : composer path locate===================================
 
 Yes, there are other ways to set environment variables globally without modifying the ~/.bashrc file. Here are a few alternatives:
