@@ -5,7 +5,7 @@
 #Archiving tool such as Tar(take Archive):
 ---------------------------------------------
 >>> tar c | create Archive. 
->>> tar a or 'r'| append to Archive. 
+>>> tar r| append to Archive. 
 >>> tar t | list content of  Archive. 
 >>> tar x | extract Archive. 
 >>> tar v | verbose. actually show what file or dir archiving. 
