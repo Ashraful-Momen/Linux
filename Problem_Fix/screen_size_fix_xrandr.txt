@@ -1,0 +1,44 @@
+┌──(shuvo㉿kali)-[~]
+└─$ cvt 1360 768
+# 1366x768 59.80 Hz (CVT) hsync: 47.72 kHz; pclk: 84.75 MHz
+Modeline "1360x768_60.00"   84.75  1366 1431 1567 1776  768 771 781 798 -hsync +vsync
+
+┌──(shuvo㉿kali)-[~]
+└─$ xrandr --newmode "1360x768_60.00" <values_from_cvt_output>
+
+zsh: parse error near `\n'
+
+┌──(shuvo㉿kali)-[~]
+└─$ xrandr --newmode "1360x768_60.00" 84.75 1366 1431 1567 1776 768 771 781 798 -hsync +vsync
+
+
+
+
+
+┌──(shuvo㉿kali)-[~]
+└─$ xrandr --rmmode "1360x768_60.00"  | for remove the version ....
+
+
+
+┌──(shuvo㉿kali)-[~]
+└─$ sudo xrandr --newmode "1360x768_60.00" 84.75 1366 1431 1567 1776 768 771 781 798 -hsync +vsync
+
+
+┌──(shuvo㉿kali)-[~]
+└─$ xrandr
+Screen 0: minimum 320 x 200, current 1024 x 768, maximum 8192 x 8192
+VGA-1 connected primary 1024x768+0+0 (normal left inverted right x axis y axis) 0mm x 0mm
+   1024x768      60.00*
+   800x600       60.32    56.25
+   848x480       60.00
+   640x480       59.94
+  1360x768_60.00 (0x2ad) 84.750MHz -HSync +VSync
+        h: width  1366 start 1431 end 1567 total 1776 skew    0 clock  47.72KHz
+        v: height  768 start  771 end  781 total  798           clock  59.80Hz
+
+┌──(shuvo㉿kali)-[~]
+└─$ sudo xrandr --addmode VGA-1 "1360x768_60.00"
+[sudo] password for shuvo:
+
+┌──(shuvo㉿kali)-[~]
+└─$
