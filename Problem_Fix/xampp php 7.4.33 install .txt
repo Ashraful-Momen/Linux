@@ -1,3 +1,147 @@
+┌──(shuvo㉿kali)-[~]
+└─$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Software  Templates  Videos  snap
+                                                                                                                           
+┌──(shuvo㉿kali)-[~]
+└─$ cd Software/ 
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software]
+└─$ ls
+Downloads  xamp
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software]
+└─$ cd xamp     
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/xamp]
+└─$ ls
+xampp-linux-x64-7.4.33-0-installer.run
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/xamp]
+└─$ sudo ./xampp-linux-x64-7.4.33-0-installer.run
+[sudo] password for shuvo: 
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/xamp]
+└─$ export PATH=/opt/lampp/bin:$PATH
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/xamp]
+└─$ php -v
+PHP 7.4.33 (cli) (built: Nov 22 2022 11:36:42) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v3.4.0, Copyright (c) Zend Technologies
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/xamp]
+└─$ ls
+xampp-linux-x64-7.4.33-0-installer.run
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/xamp]
+└─$ cd ..  
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software]
+└─$ ls
+Downloads  xamp
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software]
+└─$ mkdir composer
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software]
+└─$ cd composer
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/composer]
+└─$ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/composer]
+└─$ php composer-setup.php                                                   
+All settings correct for using Composer
+Downloading...
+
+Composer (version 2.7.1) successfully installed to: /home/shuvo/Software/composer/composer.phar                            
+Use it: php composer.phar
+
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/composer]
+└─$ php -r "unlink('composer-setup.php');"
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/composer]
+└─$ ls         
+composer.phar
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/composer]
+└─$ php composer.phar --version           
+Composer version 2.7.1 2024-02-09 15:26:28
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/composer]
+└─$ 
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/composer]
+└─$ export PATH="$PATH:/home/shuvo/Software/composer"
+
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/composer]
+└─$ composer -v
+   ______
+  / ____/___  ____ ___  ____  ____  ________  _____
+ / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
+\____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
+                    /_/
+Composer version 2.7.1 2024-02-09 15:26:28
+
+Usage:
+  command [options] [arguments]
+
+Options:
+  -h, --help                     Display help for the given command. When no command is given display help for the list command
+  -q, --quiet                    Do not output any message
+  -V, --version                  Display this application version
+      --ansi|--no-ansi           Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction           Do not ask any interactive question
+      --profile                  Display timing and memory usage information
+      --no-plugins               Whether to disable plugins.
+      --no-scripts               Skips the execution of all scripts defined in composer.json file.
+  -d, --working-dir=WORKING-DIR  If specified, use the given directory as working directory.
+      --no-cache                 Prevent use of the cache
+  -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Available commands:
+  about                Shows a short information about Composer
+  archive              Creates an archive of this composer package
+  audit                Checks for security vulnerability advisories for installed packages
+  browse               [home] Opens the package's repository URL or homepage in your browser
+  bump                 Increases the lower limit of your composer.json requirements to the currently installed versions
+  check-platform-reqs  Check that platform requirements are satisfied
+  clear-cache          [clearcache|cc] Clears composer's internal package cache
+  completion           Dump the shell completion script
+  config               Sets config options
+  create-project       Creates new project from a package into given directory
+  depends              [why] Shows which packages cause the given package to be installed
+  diagnose             Diagnoses the system to identify common errors
+  dump-autoload        [dumpautoload] Dumps the autoloader
+  exec                 Executes a vendored binary/script
+  fund                 Discover how to help fund the maintenance of your dependencies
+  global               Allows running commands in the global composer dir ($COMPOSER_HOME)
+  help                 Display help for a command
+  init                 Creates a basic composer.json file in current directory
+  install              [i] Installs the project dependencies from the composer.lock file if present, or falls back on the composer.json
+  licenses             Shows information about licenses of dependencies
+  list                 List commands
+  outdated             Shows a list of installed packages that have updates available, including their latest version
+  prohibits            [why-not] Shows which packages prevent the given package from being installed
+  reinstall            Uninstalls and reinstalls the given package names
+  remove               [rm] Removes a package from the require or require-dev
+  require              [r] Adds required packages to your composer.json and installs them
+  run-script           [run] Runs the scripts defined in composer.json
+  search               Searches for packages
+  self-update          [selfupdate] Updates composer.phar to the latest version
+  show                 [info] Shows information about packages
+  status               Shows a list of locally modified packages
+  suggests             Shows package suggestions
+  update               [u|upgrade] Updates your dependencies to the latest version according to composer.json, and updates the composer.lock file
+  validate             Validates a composer.json and composer.lock
+                                                                                                                           
+┌──(shuvo㉿kali)-[~/Software/composer]
+└─$ 
+
+====================================================================================
 User
 php 7.4.33 run form my xam now I set the $path= xamp _php .... then can I install the composer with the xampp php7.4.33 without error ?
 ChatGPT
@@ -122,3 +266,4 @@ bash
 
 Now, you should be able to run Composer from any directory without specifying the full path. You can verify this by typing composer -v in your terminal.
 ChatGPT can make mistakes. Consider checking important information.--------------------------
+=======================================================================
