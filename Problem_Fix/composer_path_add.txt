@@ -29,6 +29,7 @@ If Composer is recognized and the version information is displayed, then the sym
 
 
 then we can install the laravel 7 with the composer command => composer create-project --prefer-dist laravel/laravel my-laravel-app "7.*"
+or => composer create-project --prefer-dist laravel/laravel:^7.0 your-project-name
 
 
 =============================================full chat : composer path locate===================================
