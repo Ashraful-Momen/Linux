@@ -1,0 +1,36 @@
+┌──(shuvo㉿kali)-[~]
+└─$ echo $PATH
+
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+                                                                                                                           
+┌──(shuvo㉿kali)-[~]
+└─$ sudo ln -s /opt/lampp/manager-linux-x64.run /usr/local/bin/xampp
+
+[sudo] password for shuvo: 
+                                                                                                                           
+┌──(shuvo㉿kali)-[~]
+└─$ xampp             
+zsh: permission denied: xampp
+                                                                                                                           
+┌──(shuvo㉿kali)-[~]
+└─$ xamp 
+Command 'xamp' not found, did you mean:
+  command 'wamp' from deb python3-autobahn
+  command 'xmp' from deb xmp
+  command 'pamp' from deb paml
+Try: sudo apt install <deb name>
+                                                                                                                           
+┌──(shuvo㉿kali)-[~]
+└─$ sudo xampp                                                      
+Unable to initialize installer.
+Is /tmp writable ?
+Is SELinux enabled? You may need to disable it temporarily
+Please see below for details
+http://fedora.redhat.com/docs/selinux-faq-fc3/index.html#id2826056
+                                                                                                                           
+┌──(shuvo㉿kali)-[~]
+└─$ sudo chmod +x /opt/lampp/manager-linux-x64.run
+
+                                                                                                                           
+┌──(shuvo㉿kali)-[~]
+└─$ xampp
