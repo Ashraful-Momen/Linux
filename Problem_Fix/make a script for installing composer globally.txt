@@ -1,0 +1,43 @@
+bash
+
+#!/bin/bash
+
+# Remove any existing composer setup files
+php -r "unlink('composer-setup.php');"
+
+# Download the Composer setup file
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+
+# Verify the downloaded setup file (optional step)
+# php -r "if (hash_file('sha384', 'composer-setup.php') === 'a5c698ffe4b8e849a443b120cd5ba38043260d5c4023dbf93e1558871f1f07f58274fc6f4c93bcfd858c6bd0775cd8d1') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+
+# Install Composer
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+# Remove the Composer setup file
+php -r "unlink('composer-setup.php');"
+
+# Check Composer version
+composer --version
+
+# Add Composer's global binary directory to the PATH
+echo 'export PATH="$HOME/.config/composer/vendor/bin:$PATH"' >> ~/.bashrc
+
+# Source the bashrc file to apply changes
+source ~/.bashrc
+
+echo "Composer has been installed globally."
+
+Save this script in a file, for example, install_composer.sh, and then make it executable:
+
+bash
+
+chmod +x install_composer.sh
+
+You can then run the script with:
+
+bash
+
+./install_composer.sh
+
+This script will download and install Composer globally on your system, and add Composer's global binary directory to your PATH so that you can use Composer from any directory.
