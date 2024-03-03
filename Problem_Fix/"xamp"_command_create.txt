@@ -26,3 +26,27 @@ sudo chmod +x /usr/local/bin/xamp
 
 Now, you should be able to start XAMPP by simply typing xamp in your terminal, and it will execute sudo /opt/lampp/manager-linux-x64.run behind the scenes.
 >>> sudo xamp
+
+
+=========================================================================================================================================================
+It seems there was an issue with the modifications you made in your .bashrc file. Specifically, there's an error in one of the lines you added. Let's correct it.
+
+Replace this line:
+
+bash
+
+alias xamp='/opt/lampp/manager-linux-x64.run'
+
+with:
+
+bash
+
+alias xamp='/opt/lampp/manager-linux-x64.run'
+
+It seems like you've attempted to add the alias for xamp correctly, but perhaps there's some confusion caused by a previous error message. After correcting this line, save the file and then source it again:
+
+bash
+
+source ~/.bashrc
+
+Now, you should be able to start XAMPP by typing xamp in your terminal.
