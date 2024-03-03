@@ -28,6 +28,24 @@ xampp-linux-x64-7.4.33-0-installer.run
 PHP 7.4.33 (cli) (built: Nov 22 2022 11:36:42) ( NTS )
 Copyright (c) The PHP Group
 Zend Engine v3.4.0, Copyright (c) Zend Technologies
+
+#now set the php7 as global ==========================================================================
+┌──(shuvo㉿kali)-[~]
+└─$ echo $PATH                      
+/opt/lampp/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/shuvo/software/composer:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/snap/bin:/home/shuvo/.dotnet/tools
+                                                                                
+┌──(shuvo㉿kali)-[~]
+└─$ sudo ln -s /opt/lampp/bin/php /usr/local/bin/php7
+                                                                                
+┌──(shuvo㉿kali)-[~]
+└─$ php7 -v
+PHP 7.4.33 (cli) (built: Nov 22 2022 11:36:42) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v3.4.0, Copyright (c) Zend Technologies
+                                                                                
+┌──(shuvo㉿kali)-[~]
+└─$ 
+
                                                                                                                            
 ┌──(shuvo㉿kali)-[~/Software/xamp]
 └─$ ls
