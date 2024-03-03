@@ -4,6 +4,11 @@ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 
+composer global path:
+_---------------------
+sudo mv /home/ashraful/software/composer.phar /usr/local/bin/composer
+sudo chmod +x /usr/local/bin/composer
+
 
 #after successfully install the composer then we can show a file :   composer.phar, 
 we can run the composer with php >>>> php composer.phar --version.
