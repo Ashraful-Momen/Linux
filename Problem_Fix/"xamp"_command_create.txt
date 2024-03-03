@@ -1,0 +1,28 @@
+make a command for xamp alternative for this command => sudo /opt/lampp/manager-linux-x64.run
+
+
+If running sudo /opt/lampp/manager-linux-x64.run directly starts XAMPP for you, we can create a simple Bash script and then make it executable. Here's how you can do it:
+
+    Create a Bash script file, let's name it xamp, in a directory that is included in your system's PATH. For example, you can create it in /usr/local/bin, which is a common directory for user-installed executables.
+
+bash
+
+sudo nano /usr/local/bin/xamp
+
+    In the text editor, add the following lines to the file:
+
+bash
+
+#!/bin/bash
+sudo /opt/lampp/manager-linux-x64.run
+
+    Save the file and exit the text editor.
+
+    Make the script executable:
+
+bash
+
+sudo chmod +x /usr/local/bin/xamp
+
+Now, you should be able to start XAMPP by simply typing xamp in your terminal, and it will execute sudo /opt/lampp/manager-linux-x64.run behind the scenes.
+>>> sudo xamp
