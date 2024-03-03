@@ -375,6 +375,8 @@ Do you want to install it? (N/y)n
 └─$ 
 ChatGPT
 
+=========================================if composer error : permission dined form root => alias composer="php ~/software/composer/composer.phar"================================================
+
 It seems like the issue persists despite the attempts to source the composer_env.sh file. The problem could be due to the fact that the composer command is not recognized even though the correct path to the Composer executable is being added to the PATH variable.
 
 Let's try a different approach:
