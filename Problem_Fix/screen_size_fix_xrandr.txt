@@ -45,5 +45,9 @@ VGA-1 connected primary 1024x768+0+0 (normal left inverted right x axis y axis) 
 
 /home/shouv/ *.profile
 -------------------------------
-sudo xrandr --newmode "1360x768_60.00" 84.75 1366 1431 1567 1776 768 771 781 798 -hsync +vsync
-sudo xrandr --addmode VGA-1 "1360x768_60.00"
+# Set screen resolution to 1366x768 using xrandr
+
+xrandr --newmode "1360x768_60.00" 84.75 1366 1431 1567 1776 768 771 781 798 -hsync +vsync
+xrandr --addmode VGA-1 "1360x768_60.00"
+xrandr --output VGA-1 --mode "1360x768_60.00"
+
