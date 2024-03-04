@@ -1,0 +1,73 @@
+Here's how you can navigate to the .config/Code/User directory in the terminal:
+
+bash
+
+cd ~/.config/Code/User
+
+And then you can edit the settings.json file using a text editor like nano:
+
+bash
+
+nano settings.json
+
+This is the file where you can add or modify your Visual Studio Code settings. If settings.json doesn't exist, you can create it manually.
+
+Remember, the defaultSettings.json file, if it existed, would typically contain the default settings provided by Visual Studio Code. You can refer to it to see the default settings, but you should use settings.json for your customizations and overrides.
+User
+┌──(ashraful㉿kali)-[~/.config/Code/User]
+└─$ ls   
+History        keybindings.json    settings.json  workspaceStorage
+globalStorage  settings.jons.save  snippets;    add the fonts-fira-code => "editor.fontFamily": "'Fira Code'","editor.fontLigatures": true
+                                                 
+ChatGPT
+
+It looks like you have the settings.json file present in your Visual Studio Code user settings directory. You can edit this file to customize your Visual Studio Code settings.
+
+To edit the settings.json file, you can use any text editor you prefer. Here's how you can edit it using the nano text editor:
+
+bash
+
+nano settings.json
+
+This command will open the settings.json file in the nano text editor, allowing you to make modifications to your Visual Studio Code settings.
+
+Inside the settings.json file, you can add or modify settings according to your preferences. For example, if you want to add the Fira Code font family and enable font ligatures, you can add the following lines:
+
+json
+
+{
+    "editor.fontFamily": "'Fira Code', 'Courier New', monospace",
+    "editor.fontLigatures": true
+}
+
+Make sure to save your changes after editing the file. Once you've saved the changes, restart Visual Studio Code for the changes to take effect.
+
+If you need any further assistance or have any questions about specific settings, feel free to ask!
+User
+{
+    "workbench.sideBar.location": "right",
+    "json.schemas": [
+        
+    ]
+}
+; now you can add here 
+ChatGPT
+
+Certainly! If you'd like to add more settings to your settings.json file, you can simply append them below the existing settings. Here's an example of how you can add more settings:
+
+json
+
+{
+    "workbench.sideBar.location": "right",
+    "json.schemas": [],
+    "editor.fontFamily": "'Fira Code', 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 14,
+    "editor.tabSize": 4,
+    "files.autoSave": "onWindowChange",
+    "explorer.confirmDragAndDrop": false
+}
+
+In this example, I've added a few more settings such as editor.fontSize, editor.tabSize, files.autoSave, and explorer.confirmDragAndDrop. You can add any settings you wish in a similar manner.
+
+Remember to separate each setting with a comma, and ensure that the JSON format is maintained correctly.
