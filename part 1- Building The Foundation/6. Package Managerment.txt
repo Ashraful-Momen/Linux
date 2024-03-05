@@ -1,0 +1,37 @@
+#package management: 
+---------------------
+
+#>>> apt-cache search pkg_name or >>> apt search pkg_name | search the pkg name . 
+#>>> apt-cache show pkg_name or >>> apt show pkg_name | show the pkg name . 
+#>>> apt-get install pkg_name or >>> apt install pkg_name | install the pkg name . 
+#>>> apt-get remove pkg_name or >>> apt remove pkg_name | remove the pkg name . 
+#>>> apt-get autoremove pkg_name or >>> apt autoremove pkg_name | autoremove the pkg which not use and last remove pkg data also. 
+#>>> apt-get purge pkg_name or >>> apt purge pkg_name | remove the pkg name and config. 
+
+#>>> apt update | update the source pkg again
+#>>> apt upgrade | upgrade the source pkg version 
+#>>> apt full-upgrade  or apt-get dis-upgrade | upgrade the source pkg version and dependency
+#>>> apt edir-source or nano /etc/apt/sources.list | update the source where apt set [download all pkg's]
+
+
+#insatall package in offline : 
+-------------------------------
+#>>> dpkg -l pkg_name | find the  pkg full version . 
+#>>> dpkg -i pkg_name | install pkg in offline. 
+#>>> dpkg -r pkg_name | remove pkg 
+
+#wild card: 
+--------------------------------------
+#>>> * - match zero or all characters 
+#>>> ? - match exactly one characters
+#>>> [] - Matches any of the characters enclosed in the brackets 
+#>>> \ - escape characters. 
+
+#Help: 
+------------------------
+#>>> pkg_name --help | show the option of pkg how to use . 
+#>>> man pkg_name | show the menual of the pkg_name. 
+#>>> file file_name | show the details of file name . 
+#>>> apropos pkg | show the details in one line . 
+#>>> whereis pkg_name | where file_exit show the location . 
+#>>> 
