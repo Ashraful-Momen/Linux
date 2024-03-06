@@ -34,4 +34,21 @@
 #>>> file file_name | show the details of file name . 
 #>>> apropos pkg | show the details in one line . 
 #>>> whereis pkg_name | where file_exit show the location . 
+#>>> whoami | show the current user . 
+#>>> locate file_name | show the file location and details what's inside the files . 
+#>>> which  file_name | show the file location of /usr/local/bin/file_name-"which use also command " . 
 #>>> 
+
+
+┌──(ashraful㉿kali)-[~/Linux]
+└─$ which php     
+/usr/local/bin/php
+                                                                                                                                                                                 
+┌──(ashraful㉿kali)-[~/Linux]
+└─$ which xamp
+/usr/local/bin/xamp
+                                                                                                                                                                                 
+┌──(ashraful㉿kali)-[~/Linux]
+└─$ 
+
+
