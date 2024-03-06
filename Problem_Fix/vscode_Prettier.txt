@@ -1,0 +1,7 @@
+#firstly install the package . 
+
+#setting -> enable the defualt format 
+
+#setting -> default format -> prettier-code formatter. 
+
+#set the shortcut key -> search-> 'formate document with -> clt+shift+f . and formate document forced -> clt+shift+f. 
