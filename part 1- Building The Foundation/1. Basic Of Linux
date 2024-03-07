@@ -1,3 +1,21 @@
+***Short history : terminal is the command line interface (CLI). root bash execute the command in /bash/bin file . the whole system manage by the command . CLI more powerfull then GUI.
+
+#kernel: a kernel is the core component of an operating system that acts as a bridge between the hardware and software layers. It manages system resources, such as CPU, memory, and peripherals,
+  and provides essential services like process management, device drivers, and memory management.
+  Essentially, it's the fundamental software that enables your computer's hardware and software to communicate and function together smoothly.
+
+
+The relationship between the kernel and Bash, the Bourne Again Shell (a popular Unix shell), is that Bash runs as a user-level program on top of the operating system kernel.
+
+The kernel manages low-level system resources and provides services like process scheduling, memory management, and hardware interaction. When you interact with your computer through commands in a shell like Bash, 
+Bash acts as an interface between you (the user) and the kernel. It takes your commands, interprets them, and sends appropriate instructions to the kernel to perform tasks such as creating processes,
+managing files, or accessing hardware.
+
+So, Bash relies on the kernel to execute system calls and manage system resources. It's the kernel's responsibility to handle these requests from Bash and perform the necessary actions, 
+ensuring that the system operates efficiently and securely.
+
+
+
 #Basic of Linux Command : 
 --------------------------
 #update the system : >>> apt update 
