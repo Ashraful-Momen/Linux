@@ -1,0 +1,3 @@
+#install gnome extension manager : >>> sudo apt install gnome-shell-extension-manager
+
+# goto > gnome_extension_manager : isntall net simplify etc.... 
