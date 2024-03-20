@@ -1,0 +1,8 @@
+$ sudo apt install snapd
+$ systemctl enable --now snapd apparmor
+$ snap install hello-world
+$ sudo snap install snap-store
+
+#before run any snap-store : 
+--------------------------
+sudo service snpad.apparmor status/start/stop.
