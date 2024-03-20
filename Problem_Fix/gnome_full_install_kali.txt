@@ -1,0 +1,19 @@
+#install gnome : 
+-----------------
+
+>>>sudo apt install kali-desktop-gnome
+>>> select gdm3
+>>> sudo service gdm3 start
+>>> sudo service lightdm stop
+
+#remove xfce all : 
+--------------------
+
+>>>>sudo apt remove kali-desktop-xfce xfce4* lightdm*
+>>>>sudo apt autoremove
+
+#install gnome-shell-extension-manager: 
+-----------------------------------------
+>>> sudo apt install gnome-shall-extension-manager
+>>> search : manager : select >>> gnome extension manager and install extension.
+>>> net speed similator. 
