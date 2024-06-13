@@ -1,0 +1,29 @@
+1.=> netdiscover -h | for the option for the tool using . 
+
+2.=> netdiscover -r ip_address/24 | -r for range and ip_address/24 for search all ip_address entier the network. 
+
+ Currently scanning: Finished!   |   Screen View: Unique Hosts                                                                                                                                                                              
+                                                                                                                                                                                                                                            
+ 148 Captured ARP Req/Rep packets, from 16 hosts.   Total size: 8880                                                                                                                                                                        
+ _____________________________________________________________________________
+   IP            At MAC Address     Count     Len  MAC Vendor / Hostname      
+ -----------------------------------------------------------------------------
+ 192.168.3.12    b4:2e:99:7b:73:8b    121    7260  GIGA-BYTE TECHNOLOGY CO.,LTD.                                                                                                                                                            
+ 192.168.3.1     78:8c:b5:64:7e:14      5     300  TP-Link Corporation Limited                                                                                                                                                              
+ 192.168.3.3     98:f1:12:ab:fb:74      2     120  Hangzhou Hikvision Digital Technology Co.,Ltd.                                                                                                                                           
+ 192.168.3.5     98:f1:12:ab:fb:83      2     120  Hangzhou Hikvision Digital Technology Co.,Ltd.                                                                                                                                           
+ 192.168.3.6     98:f1:12:ab:fb:77      2     120  Hangzhou Hikvision Digital Technology Co.,Ltd.                                                                                                                                           
+ 192.168.3.7     98:f1:12:ab:fb:89      2     120  Hangzhou Hikvision Digital Technology Co.,Ltd.                                                                                                                                           
+ 192.168.3.8     98:f1:12:ab:fb:71      2     120  Hangzhou Hikvision Digital Technology Co.,Ltd.                                                                                                                                           
+ 192.168.3.9     98:f1:12:ab:f7:45      2     120  Hangzhou Hikvision Digital Technology Co.,Ltd.                                                                                                                                           
+ 192.168.3.10    98:f1:12:ab:fb:70      2     120  Hangzhou Hikvision Digital Technology Co.,Ltd.                                                                                                                                           
+ 192.168.3.11    98:f1:12:ab:fc:96      2     120  Hangzhou Hikvision Digital Technology Co.,Ltd.                                                                                                                                           
+ 192.168.3.13    00:0b:82:a7:8d:ed      1      60  Grandstream Networks, Inc.                                                                                                                                                               
+ 192.168.3.99    e0:d5:5e:bc:c4:6c      1      60  GIGA-BYTE TECHNOLOGY CO.,LTD.                                                                                                                                                            
+ 192.168.3.111   b4:2e:99:7b:7d:92      1      60  GIGA-BYTE TECHNOLOGY CO.,LTD.                                                                                                                                                            
+ 192.168.3.188   b0:a7:b9:5c:69:2d      1      60  TP-Link Corporation Limited                                                                                                                                                              
+ 192.168.3.220   98:f1:12:ab:f7:00      1      60  Hangzhou Hikvision Digital Technology Co.,Ltd.                                                                                                                                           
+ 192.168.3.221   98:f1:12:ab:fb:85      1      60  Hangzhou Hikvision Digital Technology Co.,Ltd.     
+
+ -------------------------------------------------------------------------
+

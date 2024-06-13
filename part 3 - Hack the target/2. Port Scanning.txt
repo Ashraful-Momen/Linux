@@ -1,0 +1,22 @@
+#nmap: 
+-------------------------------------
+>>> nmap -v | -v for verbose means detials ... what's happing every second of the ip ... 
+
+
+---------------------------------------
+#scanning every single TCP port possible 
+
+>>> nmap -v -T5 -p 0-65535 -A  ip_address -oA fileName| -A is addition option to know details : OS, Service , patch , version ,vernuble etc  and it take more time. | -p for port
+                                                      | -oA for 'output' 'All' different option for save file . 
+                                                      | -T5 for time for reliable network fast scanning
+--------------------------------------
+
+>>> mv nmap_scanning file.* target/
+
+>>>cd target 
+
+>>> 
+
+
+
+ 
