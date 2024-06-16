@@ -1,0 +1,3 @@
+>>> sudo apt install simplescreenrecoder
+
+then setup the file location , 40fps for video frame rate and video format as : mp4...
