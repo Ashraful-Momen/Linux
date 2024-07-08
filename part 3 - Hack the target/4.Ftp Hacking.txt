@@ -14,4 +14,10 @@
 
 >>> bye 
 
-#
+#set up the vpsftp on system.
+
+# find the version of ftp. 
+
+# find the exploit and set up with metasploit . 
+
+>>> then expolit
