@@ -1,0 +1,39 @@
+#install the nessus on kali
+
+#run the nessus
+
+>>/etc/init.d/sessusd start
+
+#scan with the nmap:(what service running on my machine)
+
+>>>netstat -antp
+
+# then goto the nessus webpage with the >>> localhost:8834
+
+>>>select the option +new scan
+
+>>> fillup the form > 1. name : anyName of the scan .
+
+>>> targets> ip_address.
+
+>>> save .
+
+>>> run the scanning in the right side play btn by click.
+
+
+>>> if click double click then show the progress of the scanning.
+
+>>> click the vurnability btn to show the vurnability of the target .
+
+>>> Scan Details
+
+>>> vurnability level: critical , high, medium, low , info....
+
+>>> click the vurnability level for what can I do for hacking .
+
+>>> Nessus fail to ftp ditection , some time it's ignorable ... so use multiple tools for finding the vurnability.
+
+
+
+
+
