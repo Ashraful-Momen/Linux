@@ -1,0 +1,17 @@
+#install ftp for hacking . 
+
+>>>sudo apt install ftp 
+
+#connect to the ftp 
+
+>>>sudo ftp ip_address
+
+#show the ftp command 
+
+>>> ? 
+
+#for exit type 
+
+>>> bye 
+
+#

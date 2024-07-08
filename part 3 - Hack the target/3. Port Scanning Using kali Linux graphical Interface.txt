@@ -1,0 +1,8 @@
+#open the zenmap for GUI port scanning. 
+
+1. If we not select the profile => instant scanning all tcp port and scan ip then zenmap just scanning 1000 port only . if we select option then scanning
+    65000 port. 
+
+2. after scanning the open port showing as the green color . and we can show the details of the target ip . then we can save it any where of the scanning 
+    details. 
+
