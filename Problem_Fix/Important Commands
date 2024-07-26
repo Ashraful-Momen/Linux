@@ -1,0 +1,13 @@
+#install disk tool : (Format USB pendrive etc)
+>>> sudo apt-get install gnome-disk-utility
+
+#show the name of install software: 
+>>> sudo find / -name fdisk
+
+#show the all SSD/HDD in system : 
+>>> lsblk
+
+#make alais command from install path to /usr/local/bin/software_name: 
+
+>>> ln -v /install/path /usr/local/bin/software_alais_name
+ex: sudo ln -s /sbin/fdisk /usr/local/bin/fdisk
