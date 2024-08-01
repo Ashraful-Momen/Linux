@@ -1,0 +1,81 @@
+To access your home server running Ubuntu over the internet, follow these steps:
+
+### 1. Set Up SSH on Your Home Server
+1. **Install SSH Server**:
+   ```bash
+   sudo apt update
+   sudo apt install openssh-server
+   ```
+
+2. **Enable and Start SSH Service**:
+   ```bash
+   sudo systemctl enable ssh
+   sudo systemctl start ssh
+   ```
+
+3. **Check SSH Status**:
+   ```bash
+   sudo systemctl status ssh
+   ```
+
+### 2. Configure Your Router
+1. **Port Forwarding**:
+   - Log in to your router's web interface.
+   - Find the port forwarding section.
+   - Add a new port forwarding rule to forward external port 22 to the internal IP address of your Ubuntu server on port 22.
+
+2. **Dynamic DNS (Optional)**:
+   - If your external IP address changes frequently, set up a Dynamic DNS (DDNS) service to get a consistent hostname that maps to your dynamic IP. Many routers support DDNS services like No-IP or DynDNS.
+
+### 3. Secure Your SSH Server
+1. **Change the Default Port (Optional)**:
+   - Edit the SSH configuration file:
+     ```bash
+     sudo nano /etc/ssh/sshd_config
+     ```
+   - Change the line `#Port 22` to another port number, e.g., `Port 2222`.
+   - Restart SSH service:
+     ```bash
+     sudo systemctl restart ssh
+     ```
+
+2. **Disable Root Login**:
+   - In the same SSH configuration file, find and change the line `PermitRootLogin` to `no`.
+   - Restart SSH service.
+
+3. **Use Public Key Authentication**:
+   - Generate an SSH key pair on your local machine:
+     ```bash
+     ssh-keygen
+     ```
+   - Copy the public key to your server:
+     ```bash
+     ssh-copy-id username@server_ip
+     ```
+
+4. **Disable Password Authentication** (after setting up key-based authentication):
+   - In the SSH configuration file, set `PasswordAuthentication` to `no`.
+   - Restart SSH service.
+
+### 4. Access Your Server Remotely
+- Open an SSH connection from a remote machine using the command:
+  ```bash
+  ssh -p [port] username@your_external_ip_or_ddns_hostname
+  ```
+  Replace `[port]` with your chosen port if you changed it from the default, `username` with your server username, and `your_external_ip_or_ddns_hostname` with your external IP or DDNS hostname.
+
+### 5. Additional Tips
+1. **Firewall Configuration**:
+   - Ensure your server's firewall allows SSH traffic:
+     ```bash
+     sudo ufw allow ssh
+     ```
+
+2. **Regularly Update Your System**:
+   - Keep your server updated to protect against vulnerabilities:
+     ```bash
+     sudo apt update
+     sudo apt upgrade
+     ```
+
+By following these steps, you should be able to securely access your Ubuntu home server over the internet using SSH.
