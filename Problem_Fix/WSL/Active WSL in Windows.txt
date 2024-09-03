@@ -1,0 +1,4 @@
+goto > control panel > uninstall programme > windows feaures > active > windows subsystem. > restart pc. 
+-----------------------
+install os in wsl > wsl --install . 
+-----------------------
