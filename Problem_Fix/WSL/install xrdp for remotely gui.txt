@@ -56,3 +56,7 @@ You should now see the Xfce desktop environment running in your WSL instance.
 - **System Load:** WSL with a desktop environment can be resource-intensive. Ensure your system has enough resources to handle the load.
 
 By following these steps, you should be able to remotely access and use a GUI on your Debian installation within WSL using XRDP.
+----------------------------------- if getting error => "dbus-lunch"--------------------------------
+>>>sudo apt install dbus-x11
+>>>echo "export $(dbus-launch)" >> ~/.xsession
+echo "xfce4-session" >> ~/.xsession
