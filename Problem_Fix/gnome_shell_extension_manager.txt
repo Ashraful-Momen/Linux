@@ -1,3 +1,58 @@
 #install gnome extension manager : >>> sudo apt install gnome-shell-extension-manager
 
 # goto > gnome_extension_manager : isntall net simplify etc.... 
+-------------------------------------------------------------------------------------------------------------------------
+#already gnome shell extension manager remove form shell: solution. 
+---------------------------------------------------------
+The error message you're encountering indicates that the `gnome-shell-extension-manager` package is not available in the default repositories for your version of Kali Linux, or it may have been moved or renamed.
+
+Here are some potential steps to resolve this issue:
+
+### 1. **Update Package List**
+Ensure your package list is up-to-date. Run the following command to update your repository list:
+```bash
+sudo apt update
+```
+
+### 2. **Enable Universe Repository**
+In some cases, you may need to enable the "universe" repository in order to get access to certain packages. You can do this by running:
+```bash
+sudo add-apt-repository universe
+sudo apt update
+```
+
+After that, try to install `gnome-shell-extension-manager` again:
+```bash
+sudo apt install gnome-shell-extension-manager
+```
+
+### 3. **Install GNOME Tweaks (Alternative Tool)**
+If `gnome-shell-extension-manager` is not available, you can use **GNOME Tweaks** as an alternative for managing extensions:
+```bash
+sudo apt install gnome-tweaks
+```
+
+Once installed, you can manage GNOME extensions through **GNOME Tweaks**.
+
+### 4. **Install GNOME Shell Extensions via Web Browser**
+You can also install and manage GNOME extensions directly from the [GNOME Extensions Website](https://extensions.gnome.org/):
+
+1. Install the `chrome-gnome-shell` package to integrate with your browser:
+   ```bash
+   sudo apt install chrome-gnome-shell
+   ```
+
+2. Then, visit [https://extensions.gnome.org/](https://extensions.gnome.org/) and install extensions directly through your browser.
+
+### 5. **Manually Install GNOME Shell Extension Manager**
+If `gnome-shell-extension-manager` is not available in the repositories, you can try manually installing it:
+
+1. Download the `.deb` package from an external source like [Ubuntu Packages](https://packages.ubuntu.com/):
+   - Go to [https://packages.ubuntu.com/search?keywords=gnome-shell-extension-manager](https://packages.ubuntu.com/search?keywords=gnome-shell-extension-manager) and find the package for your distribution.
+
+2. Once downloaded, install it with `dpkg`:
+   ```bash
+   sudo dpkg -i /path/to/gnome-shell-extension-manager.deb
+   ```
+
+This should help you install or manage GNOME extensions even if the original package isn't available on Kali Linux.
