@@ -1,0 +1,149 @@
+#How to connect ssh key to the gitlab
+---------------------------------------
+┌──(ashraful㉿kali)-[~/Laravel7/Dockerized The Laravel project]
+└─$ ssh-keygen -t rsa     
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/ashraful/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/ashraful/.ssh/id_rsa
+Your public key has been saved in /home/ashraful/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:7c8nem4OezHwcdIR9fXc69EhkUwsBLG9tvkn5UEGIT4 ashraful@kali
+The key's randomart image is:
++---[RSA 3072]----+
+|         o+o+++oo|
+|          +..=o.=|
+|         . E.o.o=|
+|         .. = +o+|
+|        S .= +oo.|
+|         .. * .o.|
+|          oo oo..|
+|           =*..o |
+|          oB=+o  |
++----[SHA256]-----+
+                                                                                                                                                                                                                                               
+┌──(ashraful㉿kali)-[~/Laravel7/Dockerized The Laravel project]
+└─$ cat /home/ashraful/.ssh/id_ed25519.pub
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjHaHgEZ28+lxWhxFAhPKdTQQuv7Rb15KbYxXFs/Xx9 ashraful@kali
+                                                                                                                                                                                                                                               
+┌──(ashraful㉿kali)-[~/Laravel7/Dockerized The Laravel project]
+└─$ cd /home/ashraful/.ssh/               
+                                                                                                                                                                                                                                               
+┌──(ashraful㉿kali)-[~/.ssh]
+└─$ ls            
+22-4-24-microsite_main  22-4-24-microsite_main.pub  config  id_ed25519  id_ed25519.pub  id_rsa  id_rsa.pub  known_hosts  known_hosts.old  office_gitLab  office_gitLab.pub
+                                                                                                                                                                                                                                               
+┌──(ashraful㉿kali)-[~/.ssh]
+└─$ cat id_rsa.pub                        
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCpO5Y6Vkv3xCW8fms1zB6KjLl65yQECiRXjtU8sMXYR7Z1DdxFygqvMq85W5IelVZLK34GzD6bU/NQGrSiiJGdWj6c53+6KeuIcoUtZmIIYEmjkTdyxiQjZH4vs1TenFT3h1fmnJjqLjKVNZPTLu0LjDIjOBakHVGYM5Qy+cbbnwmFLqrAiFGsXPzpBQAwdzr2aTQE+ofVFy3uoLESwI8HqR7TYlp0PGQAvaUh2gAnVxL70e++/ls9j1gdrIWRlKJJZlNDhfHqJHC0lj8m12arASET086g6LRycbxPKMbpJIUU55N8KFaanPP6WpuY8URkKaLM9McB5iAIbUnf/NYqqfBHCvZ5y6e0Iz08S3rV0Dx0Fuaq0FNjmxaeF0OWsKuLy8xR8nIcBx/mmv5WVwSaGXdmmo4wpqjS5b/wlADHCufnSbJOcVbaGUkrApMP3FfP2ZKW+XdvLX2iLv1BuwIZFuT2zOYKYrrz09J5DzOqz7XMF9X8Dfe8ctnmf+SW12E= ashraful@kali
+
+
+#goto to the gitlab > profile > settings > ssh key > paste the key . 
+
+-------------------------check the ssh key is correctly set up or not?-------------------------
+┌──(ashraful㉿kali)-[~/Laravel7/Dockerized The Laravel project]
+└─$ ssh git@192.168.3.99                                      
+PTY allocation request failed on channel 0
+Welcome to GitLab, @ashraful!
+Connection to 192.168.3.99 closed.
+-------------------------ssh key setup successfully------------------------------
+
+
+┌──(ashraful㉿kali)-[~/Laravel7/Dockerized The Laravel project]
+└─$ nano ~/.ssh/config
+---------------past and save ----------------------------
+Host gitlab
+    HostName 192.168.3.99
+    User git
+    IdentityFile ~/.ssh/id_rsa
+
+
+#Test the ssh authentication  
+------------------------------
+┌──(ashraful㉿kali)-[~/Laravel7/Dockerized The Laravel project]
+└─$ ssh -T git@192.168.3.99
+Welcome to GitLab, @ashraful!
+
+>>> git pull origin ashraful
+
+==============================================================
+4. Check Remote URL
+
+Make sure the remote URL for your Git repository is correctly set. In your Git project directory, check the remote configuration:
+
+bash
+
+git remote -v
+
+If it’s not set or incorrect, add or correct the remote URL:
+
+bash
+
+git remote add origin git@192.168.3.99:ashraful/instasure-microsite-main.git
+
+Or, if the remote URL is already set but incorrect:
+
+bash
+
+git remote set-url origin git@192.168.3.99:ashraful/instasure-microsite-main.git
+
+5. Clone Repository Again
+
+Try cloning the repository again if you haven’t already:
+
+bash
+
+git clone git@192.168.3.99:ashraful/instasure-microsite-main.git
+=======================================================
+Fetch Remote Data
+
+To fetch data from the remote repository without making any changes to your local files:
+
+bash
+
+git fetch origin
+
+Pull Changes
+
+To pull changes from the remote repository into your local branch:
+
+bash
+
+git pull origin main
+
+Replace main with the name of the branch you want to pull from if it's different.
+Push Changes
+
+To push your local commits to the remote repository:
+
+bash
+
+git push origin main
+
+Again, replace main with your branch name if it's different.
+Verify Repository Status
+
+To check the status of your local repository:
+
+bash
+
+git status
+
+Verify Branches
+
+To see all branches available locally and remotely:
+
+bash
+
+git branch -a
+
+Check Logs
+
+To view the commit history:
+
+bash
+
+git log
+
+These commands should help you interact with your GitLab repository. If you run into any issues or need further assistance, feel free to ask!
