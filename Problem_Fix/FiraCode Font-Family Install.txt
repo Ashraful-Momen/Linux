@@ -1,0 +1,69 @@
+#Download Fira Code :https://github.com/tonsky/FiraCode/releases 
+
+
+
+#install process : 
+----------------------
+Sure! Here’s a step-by-step guide starting from downloading and unzipping the Fira Code font file, followed by the installation process:
+
+### Fira Code Font Installation Guide
+
+#### Step 1: Download Fira Code
+1. **Visit the Fira Code GitHub Releases Page**:
+   - Go to [Fira Code Releases](https://github.com/tonsky/FiraCode/releases).
+
+2. **Download the Latest Release**:
+   - Look for the latest version (e.g., `Fira_Code_v6.2.zip`) and click to download the `.zip` file.
+
+#### Step 2: Unzip the Downloaded File
+1. **Open a Terminal**.
+2. **Navigate to Your Downloads Directory** (or wherever you saved the file):
+   ```bash
+   cd ~/Downloads
+   ```
+
+3. **Unzip the File**:
+   ```bash
+   unzip Fira_Code_v6.2.zip -d ~/software/FiraCode
+   ```
+   (You may need to adjust the filename based on the version you downloaded.)
+
+#### Step 3: Install the Font
+1. **Navigate to the `ttf` Directory**:
+   ```bash
+   cd ~/software/FiraCode/ttf
+   ```
+
+2. **Create a Local Fonts Directory** (if it doesn't exist):
+   ```bash
+   mkdir -p ~/.local/share/fonts
+   ```
+
+3. **Copy the `.ttf` Files** to the Local Fonts Directory:
+   ```bash
+   cp *.ttf ~/.local/share/fonts/
+   ```
+
+4. **Update the Font Cache**:
+   ```bash
+   fc-cache -f -v
+   ```
+
+#### Step 4: Configure Codium to Use Fira Code
+1. **Open Codium**.
+2. **Go to `File` > `Preferences` > `Settings`**.
+3. **Search for `font family`**.
+4. **Set the `Editor: Font Family`** to:
+   ```
+   'Fira Code', 'Courier New', monospace
+   ```
+
+#### Step 5: Enable Font Ligatures (Optional)
+1. **Search for `font ligatures`** in the settings.
+2. **Enable the `Editor: Font Ligatures` Option**.
+
+#### Step 6: Restart Codium
+- Restart Codium to apply the changes.
+
+### Conclusion
+You should now have Fira Code installed and configured in Codium! If you encounter any issues or have further questions, feel free to ask!
