@@ -13,7 +13,7 @@
 #using grep for finding 'words' : 
 ------------------------------------
 
->>> ls /usr/share/nmap/scripts | grep 'words_for_finding'
+>>> ls /usr/share/nmap/scripts | grep 'words_for_finding_file_or_app_or_service'
 
 >>> ls /usr/share/nmap/scripts | grep 'brute':
 ---------------------------------------------
@@ -44,8 +44,14 @@ vmauthd-brute.nse
 vnc-brute.nse
 xmpp-brute.nse
                                                                                 
-┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
-└─$ 
+#find the word inside the file : 
+--------------------------------
+┌─[shuvo@parrot]─[~/Downloads/Full-Funded-Scholarship-]
+└──╼ $cat append.txt | grep -i "hello"
+Hello 
+
+
+
 
 
 
