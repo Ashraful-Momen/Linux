@@ -56,7 +56,8 @@ xmpp-brute.nse
 ----------------------------------------------------------------------------------------------------------------
 #find with the grep in file : 
 ------------------------------
->>>grep 'finding_keywords' 'file_name'
+>>>grep 'finding_keywords' 'file_name' | this is the case sensative
+>>>grep -i 'finding_keywords' 'file_name' | -i means non-case-sensative
 
 >>> grep 10.10.10 target.txt 
 
