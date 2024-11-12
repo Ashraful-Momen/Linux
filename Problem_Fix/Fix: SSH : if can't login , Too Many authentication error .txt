@@ -1,0 +1,152 @@
+fix it => ┌──(ashraful㉿kali)-[~/.ssh]
+└─$ ssh root@36.255.68.213
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ED25519 key sent by the remote host is
+SHA256:8/WYuQBVj2JvmRdl+9akmuNkARalYEBleqs98JTEfaY.
+Please contact your system administrator.
+Add correct host key in /home/ashraful/.ssh/known_hosts to get rid of this message.
+Offending ED25519 key in /home/ashraful/.ssh/known_hosts:9
+  remove with:
+  ssh-keygen -f '/home/ashraful/.ssh/known_hosts' -R '36.255.68.213'
+Host key for 36.255.68.213 has changed and you have requested strict checking.
+Host key verification failed.
+ChatGPT said:
+ChatGPT
+
+The error indicates that the host key for 36.255.68.213 has changed. This could be due to legitimate reasons (e.g., the server was reinstalled, or its SSH configuration changed) or a security concern (like a man-in-the-middle attack).
+
+To fix the issue:
+Steps:
+
+    Remove the offending key: Run the following command to remove the outdated or conflicting key from your known_hosts file:
+
+ssh-keygen -f "/home/ashraful/.ssh/known_hosts" -R "36.255.68.213"
+
+Reconnect to the server: Attempt to connect again:
+
+ssh root@36.255.68.213
+
+You will be prompted to verify and accept the new key. If you trust the server, type yes to proceed:
+
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+
+Confirm the authenticity of the server: Before accepting the new key, verify with the server administrator (or the hosting provider) that the fingerprint matches. The fingerprint is:
+
+SHA256:8/WYuQBVj2JvmRdl+9akmuNkARalYEBleqs98JTEfaY
+
+Optional: Edit the known_hosts file manually: If the automated command does not work, you can edit the file manually:
+
+    Open the file in a text editor:
+
+        nano /home/ashraful/.ssh/known_hosts
+
+        Go to line 9 (as indicated in the error) and delete the offending entry.
+        Save and exit.
+
+    Retry the connection: Run the SSH command again.
+
+If you're still having issues or suspect unauthorized activity, investigate further before proceeding.
+
+
+===================================================================================================================================================
+
+┌──(ashraful㉿kali)-[~/.ssh]
+└─$ ls
+22-4-24-microsite_main  22-4-24-microsite_main.pub  config  id_ed25519  id_ed25519.pub  id_rsa  known_hosts  known_hosts.old  office_gitLab  office_gitLab.pub
+                                                                                                                                                                                                                                             
+┌──(ashraful㉿kali)-[~/.ssh]
+└─$ ssh-keygen -f "/home/ashraful/.ssh/known_hosts" -R "36.255.68.213"
+# Host 36.255.68.213 found: line 9
+/home/ashraful/.ssh/known_hosts updated.
+Original contents retained as /home/ashraful/.ssh/known_hosts.old
+                                                                                                                                                                                                                                             
+┌──(ashraful㉿kali)-[~/.ssh]
+└─$ ssh root@36.255.68.213
+The authenticity of host '36.255.68.213 (36.255.68.213)' can't be established.
+ED25519 key fingerprint is SHA256:8/WYuQBVj2JvmRdl+9akmuNkARalYEBleqs98JTEfaY.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '36.255.68.213' (ED25519) to the list of known hosts.
+Received disconnect from 36.255.68.213 port 22:2: Too many authentication failures
+Disconnected from 36.255.68.213 port 22
+                                                                                                                                                                                                                                             
+┌──(ashraful㉿kali)-[~/.ssh]
+└─$ ssh root@36.255.68.213
+Received disconnect from 36.255.68.213 port 22:2: Too many authentication failures
+Disconnected from 36.255.68.213 port 22
+                                                                                                                                                                                                                                             
+┌──(ashraful㉿kali)-[~/.ssh]
+└─$ ssh root@36.255.68.213
+Received disconnect from 36.255.68.213 port 22:2: Too many authentication failures
+Disconnected from 36.255.68.213 port 22
+                                                                                                                                                                                                                                             
+┌──(ashraful㉿kali)-[~/.ssh]
+└─$ ssh root@36.255.68.213
+Received disconnect from 36.255.68.213 port 22:2: Too many authentication failures
+Disconnected from 36.255.68.213 port 22
+                                                                                                                                                                                                                                             
+┌──(ashraful㉿kali)-[~/.ssh]
+└─$ 
+ChatGPT said:
+ChatGPT
+=========================================================================================================
+The error "Too many authentication failures" occurs when the SSH client tries multiple keys from your system but fails to authenticate with the server.
+Fix the Issue
+
+    Specify the Correct Key: Use the -i option with the SSH command to explicitly provide the correct private key:
+
+ssh -i ~/.ssh/id_ed25519 root@36.255.68.213
+
+Replace id_ed25519 with the appropriate private key file if you're using a different key (e.g., id_rsa).
+
+Limit the Number of Keys Tried: Modify the SSH configuration to limit the number of keys attempted during authentication:
+
+    Open or create the SSH configuration file:
+
+nano ~/.ssh/config
+
+Add the following configuration:
+
+    Host 36.255.68.213
+        IdentityFile ~/.ssh/id_ed25519
+        IdentitiesOnly yes
+
+    Replace id_ed25519 with your correct private key file if necessary.
+
+Verify the SSH Agent: If you use an SSH agent (e.g., ssh-agent), ensure it's not trying incorrect keys:
+
+    List the keys currently loaded in the agent:
+
+ssh-add -l
+
+If unwanted keys are loaded, remove them:
+
+ssh-add -d /path/to/unwanted/key
+
+Add the correct key if it’s missing:
+
+    ssh-add ~/.ssh/id_ed25519
+
+Retry the Connection: After specifying the correct key, try reconnecting:
+
+ssh root@36.255.68.213
+
+Server-side Configuration (if you have access): If you have administrative access to the server:
+
+    Ensure the SSH server allows enough authentication attempts. Check and modify the MaxAuthTries setting in /etc/ssh/sshd_config:
+
+MaxAuthTries 6
+
+Restart the SSH service:
+
+        sudo systemctl restart sshd
+
+If the issue persists, verify that:
+
+    The key being used matches the one added to the server's ~/.ssh/authorized_keys.
+    There are no IP blocks or restrictions on the server's firewall.
