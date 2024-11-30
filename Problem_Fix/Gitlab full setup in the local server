@@ -1,0 +1,223 @@
+# Complete GitLab Setup Process for 192.168.3.99
+
+## 1. Prerequisites Installation
+
+First, install Docker and Docker Compose if not already installed:
+
+```bash
+# Update system packages
+sudo apt update
+sudo apt upgrade -y
+
+# Install required packages
+sudo apt install -y curl openssh-server ca-certificates apt-transport-https software-properties-common
+
+# Install Docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# Start and enable Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Install Docker Compose
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+# Verify installations
+docker --version
+docker-compose --version
+```
+
+## 2. Prepare Directory Structure
+
+Create the necessary directories for GitLab:
+
+```bash
+# Create main GitLab directory
+sudo mkdir -p /srv/gitlab
+
+# Create subdirectories
+sudo mkdir -p /srv/gitlab/config
+sudo mkdir -p /srv/gitlab/logs
+sudo mkdir -p /srv/gitlab/data
+
+# Set proper permissions
+sudo chmod -R 775 /srv/gitlab
+```
+
+## 3. Create Docker Compose Configuration
+
+Create and edit the docker-compose.yml file:
+
+```bash
+# Navigate to GitLab directory
+cd /srv/gitlab
+
+# Create docker-compose.yml
+sudo nano docker-compose.yml
+```
+
+Add the following content to docker-compose.yml:
+
+```yaml
+version: '3.7'
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    container_name: gitlab
+    restart: always
+    hostname: '192.168.3.99'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://192.168.3.99'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+        nginx['redirect_http_to_https'] = false
+    ports:
+      - '80:80'      # HTTP
+      - '443:443'    # HTTPS
+      - '2224:22'    # SSH
+    volumes:
+      - '/srv/gitlab/config:/etc/gitlab'
+      - '/srv/gitlab/logs:/var/log/gitlab'
+      - '/srv/gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'
+    networks:
+      - gitlab_network
+
+networks:
+  gitlab_network:
+    driver: bridge
+```
+
+## 4. Start GitLab
+
+Launch GitLab using Docker Compose:
+
+```bash
+# Start GitLab in detached mode
+sudo docker-compose up -d
+
+# Watch the logs (in a new terminal)
+sudo docker logs -f gitlab
+```
+
+## 5. Initial Configuration
+
+1. Wait for GitLab to start (5-10 minutes). You can monitor the startup process in the logs.
+2. Open your web browser and navigate to: `http://192.168.3.99`
+3. You'll be prompted to set a password for the root user
+4. The default username is `root`
+
+## 6. Verify Installation
+
+Check if everything is running correctly:
+
+```bash
+# Check container status
+sudo docker ps
+
+# Check GitLab system status
+sudo docker exec -it gitlab gitlab-ctl status
+```
+
+## 7. Basic Security Configuration
+
+After logging in as root:
+
+1. Go to Admin Area (wrench icon)
+2. Configure basic settings:
+   - User registration (enable/disable)
+   - Visibility and access controls
+   - Authentication settings
+
+## 8. Maintenance Commands
+
+Here are some useful maintenance commands:
+
+```bash
+# Stop GitLab
+sudo docker-compose down
+
+# Start GitLab
+sudo docker-compose up -d
+
+# Restart GitLab
+sudo docker-compose restart
+
+# Create backup
+sudo docker exec -t gitlab gitlab-backup create
+
+# View logs
+sudo docker logs -f gitlab
+
+# Check GitLab status
+sudo docker exec -it gitlab gitlab-ctl status
+```
+
+## 9. Troubleshooting
+
+If you encounter issues:
+
+1. Check logs for errors:
+```bash
+sudo docker logs gitlab
+```
+
+2. Verify ports are available:
+```bash
+sudo netstat -tulpn | grep -E '80|443|2224'
+```
+
+3. Check system resources:
+```bash
+# Memory usage
+free -m
+
+# Disk space
+df -h
+```
+
+4. Fix permissions if needed:
+```bash
+sudo chown -R root:root /srv/gitlab
+```
+
+## 10. Post-Installation Steps
+
+1. Configure regular backups
+2. Set up email notifications
+3. Configure user access and permissions
+4. Set up groups and projects
+5. Configure SSH keys for users
+
+## 11. Accessing GitLab
+
+- Web Interface: `http://192.168.3.99`
+- SSH Access: `ssh git@192.168.3.99 -p 2224`
+- Default username: `root`
+- Password: (the one you set during initial setup)
+
+## 12. System Requirements Monitoring
+
+Monitor system resources regularly:
+
+```bash
+# Check container resource usage
+sudo docker stats gitlab
+
+# Check system resources
+htop  # or top if htop isn't installed
+```
+
+## 13. Updating GitLab
+
+To update to the latest version:
+
+```bash
+# Pull the latest image
+sudo docker-compose pull
+
+# Restart with new image
+sudo docker-compose up -d
+```
