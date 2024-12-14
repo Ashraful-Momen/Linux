@@ -1,0 +1,9 @@
+#check all process for any_user: 
+>>> ps aux | grep lindwas
+
+#If some processes are still there, kill them manually:
+>>> kill -9 <PID>
+
+
+#kill all cpanel vscode ssh process in terminal : 
+>>> pkill -f .vscode-server
