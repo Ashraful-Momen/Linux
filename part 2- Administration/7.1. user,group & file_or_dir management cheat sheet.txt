@@ -1,0 +1,177 @@
+#User, Group, File and Folder :(Permission and Management ): 
+---------------------------------------------------------------
+#create a group that name : Developer 
+#create user ashraful(owner/root user). 
+#create another user momen and shuvo by ashraful. 
+#Now ashraful(su) do below all task:
+----------------------------------------
+#All the tasks done by ashraful user: 
+---------------
+#Task start by ashraful user. 
+┌──(ashraful㉿kali)-[/home]
+└─$ 
+
+1.need full log what are ashraful (su) doing for tracking activities. 
+2.create a folder that name : LaraveProject
+3.ashraful : add momen -> write and shuvo ->read ,permission to the LaravelProject  
+4.check the total users . 
+5.check the total group. 
+6.check the member in group Developer. 
+7.check the permission of members in LaravelProject . 
+8.ashraful:add user shuvo to the Developer group with read permission . 
+9.ashraful: LaravelProject > create a file permission_for_user.txt where ashraful get all permission , momen only get write permission and shuvo will get read permission . 
+10.ashraful: Now  remove all permission for Momen from the permission_for_user.txt. 
+11.ashraful:now add momen user to the Another Group : Visitor
+12.ashraful:remove momen from Develper Group. 
+13.ashraful:Now change the shuvo user permission : w in LaravelProject. 
+14.ashraful:create a VisitGroup and add all user to the group . 
+15.ashraful:Create a folder VisitProject and give permission for all user for read . and write for shuvo and execute for momen user. 
+16.ashraful:Now Remove momen from VisitorGroup. 
+17.ashraful:check the momen user , which group is belong and permission also each group of file and folder. 
+18.ashraful:shuvo user only connected with VisitorGroup and VisitorProject as read permission . 
+
+19.stop the write log and save as pdf . 
+
+#end task!
+-------------------------------------------------------------------------------------------------------
+
+Here is the detailed explanation for the task steps with commands and short descriptions for each:
+
+---
+
+### **Tasks Explanation**
+
+1. **Enable logging to track activities**  
+   ```bash
+   sudo script /home/ashraful/log_activities.txt
+   ```
+   - Starts recording all terminal activities to `log_activities.txt`.
+
+2. **Create a folder named `LaravelProject`**  
+   ```bash
+   mkdir /home/ashraful/LaravelProject
+   ```
+   - Creates the folder `LaravelProject` in Ashraful's home directory.
+
+3. **Assign permissions for `LaravelProject`**  
+   ```bash
+   sudo setfacl -m u:momen:w /home/ashraful/LaravelProject
+   sudo setfacl -m u:shuvo:r /home/ashraful/LaravelProject
+   ```
+   - Gives write permission to Momen and read permission to Shuvo for `LaravelProject`.
+
+4. **Check total users**  
+   ```bash
+   cut -d: -f1 /etc/passwd
+   ```
+   - Lists all system users.
+
+5. **Check total groups**  
+   ```bash
+   cut -d: -f1 /etc/group
+   ```
+   - Lists all system groups.
+
+6. **Check members of the `Developer` group**  
+   ```bash
+   getent group Developer
+   ```
+   - Displays members of the `Developer` group.
+
+7. **Check permissions of members in `LaravelProject`**  
+   ```bash
+   getfacl /home/ashraful/LaravelProject
+   ```
+   - Shows detailed permissions for `LaravelProject`.
+
+8. **Add Shuvo to `Developer` group with read permission**  
+   ```bash
+   sudo usermod -aG Developer shuvo
+   sudo setfacl -m u:shuvo:r /home/ashraful/LaravelProject
+   ```
+   - Adds Shuvo to the `Developer` group and assigns read permission.
+
+9. **Create `permission_for_user.txt` with specific permissions**  
+   ```bash
+   touch /home/ashraful/LaravelProject/permission_for_user.txt
+   sudo setfacl -m u:ashraful:rwx /home/ashraful/LaravelProject/permission_for_user.txt
+   sudo setfacl -m u:momen:w /home/ashraful/LaravelProject/permission_for_user.txt
+   sudo setfacl -m u:shuvo:r /home/ashraful/LaravelProject/permission_for_user.txt
+   ```
+   - Assigns specific permissions for `permission_for_user.txt`.
+
+10. **Remove Momen's permissions from `permission_for_user.txt`**  
+    ```bash
+    sudo setfacl -x u:momen /home/ashraful/LaravelProject/permission_for_user.txt
+    ```
+    - Removes all permissions for Momen.
+
+11. **Add Momen to the `Visitor` group**  
+    ```bash
+    sudo groupadd Visitor
+    sudo usermod -aG Visitor momen
+    ```
+    - Creates `Visitor` group and adds Momen to it.
+
+12. **Remove Momen from `Developer` group**  
+    ```bash
+    sudo gpasswd -d momen Developer
+    ```
+    - Removes Momen from the `Developer` group.
+
+13. **Change Shuvo's permission to write for `LaravelProject`**  
+    ```bash
+    sudo setfacl -m u:shuvo:w /home/ashraful/LaravelProject
+    ```
+    - Modifies Shuvo’s permission to write.
+
+14. **Create `VisitGroup` and add all users**  
+    ```bash
+    sudo groupadd VisitGroup
+    sudo usermod -aG VisitGroup ashraful
+    sudo usermod -aG VisitGroup momen
+    sudo usermod -aG VisitGroup shuvo
+    ```
+    - Creates the `VisitGroup` and adds all users to it.
+
+15. **Create folder `VisitProject` and assign permissions**  
+    ```bash
+    mkdir /home/ashraful/VisitProject
+    sudo setfacl -m g:VisitGroup:r /home/ashraful/VisitProject
+    sudo setfacl -m u:shuvo:w /home/ashraful/VisitProject
+    sudo setfacl -m u:momen:x /home/ashraful/VisitProject
+    ```
+    - Sets read permission for all users, write for Shuvo, and execute for Momen.
+
+16. **Remove Momen from `Visitor` group**  
+    ```bash
+    sudo gpasswd -d momen Visitor
+    ```
+    - Removes Momen from the `Visitor` group.
+
+17. **Check Momen's group and permissions**  
+    ```bash
+    groups momen
+    getfacl /home/ashraful/LaravelProject
+    getfacl /home/ashraful/VisitProject
+    ```
+    - Displays Momen's group memberships and permissions for files and folders.
+
+18. **Restrict Shuvo to `VisitorGroup` and read-only access for `VisitProject`**  
+    ```bash
+    sudo gpasswd -d shuvo Developer
+    sudo setfacl -m u:shuvo:r /home/ashraful/VisitProject
+    ```
+    - Ensures Shuvo has read-only permission in `VisitProject`.
+
+19. **Stop logging and save log activities**  
+    ```bash
+    exit
+    ```
+    - Stops logging. Convert `log_activities.txt` to PDF using a tool like LibreOffice or `cups-pdf`.
+
+---
+
+### **Additional Notes**
+- Use `ls -l` and `getfacl` to verify permissions at any step.
+- Ensure all tasks are executed as `ashraful` (superuser).
