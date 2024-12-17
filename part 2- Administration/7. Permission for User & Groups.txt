@@ -21,7 +21,7 @@ drwxr-xr-r | dir_read_execute_write_root-execute_root-read
 
 >>> chmod a+rw somefile | make read_write permission for everyone_all.
 -----------------------------------------------------------------
-#ashraful user give the permission to the momen user : 
+#the momen user give the permission to  ashraful group  : 
 
 >>>sudo -i 
 
