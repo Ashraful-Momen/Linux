@@ -24,7 +24,8 @@ drwxr-xr-r | dir_read_execute_write_root-execute_root-read
 #ashraful user give the permission to the momen user : 
 
 >>>sudo -i 
->>>  
+
+>>> sudo usermod -aG <group> <user>
 >>> sudo usermod -aG ashraful momen | here 'ashraful' is the group name where add the 'momen' username.
 
 -----------------------------------------------------------------
