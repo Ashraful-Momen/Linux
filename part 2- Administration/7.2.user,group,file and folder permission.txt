@@ -1,0 +1,225 @@
+# Linux User, Group, and Permissions Management Cheat Sheet
+
+## User Management
+
+### Creating Users
+```bash
+# Create a new user
+sudo useradd username
+sudo adduser username  # Interactive alternative with more setup options
+
+# Create user with specific home directory
+sudo useradd -m -d /home/custompath username
+
+# Create user and add to groups immediately
+sudo useradd -G group1,group2 username
+```
+
+### Modifying Users
+```bash
+# Change user's primary group
+sudo usermod -g groupname username
+
+# Add user to additional groups
+sudo usermod -aG groupname username  # Add to single group
+sudo usermod -aG group1,group2 username  # Add to multiple groups
+
+# Alternative ways to add user to group
+sudo adduser username groupname
+sudo gpasswd -a username groupname
+```
+
+## Group Management
+
+### Creating and Modifying Groups
+```bash
+# Create new group
+sudo groupadd groupname
+sudo addgroup groupname  # Interactive alternative
+
+# Delete group
+sudo groupdel groupname
+sudo delgroup groupname  # Alternative
+
+# Remove user from group
+sudo gpasswd -d username groupname
+sudo deluser username groupname  # Alternative
+```
+
+### Viewing Group Information
+```bash
+# List all groups
+cat /etc/group
+getent group  # Alternative
+
+# List members of specific group
+getent group groupname
+getent group groupname | cut -d: -f4  # Show only usernames
+grep groupname /etc/group  # Alternative
+```
+
+### View User's Group Membership
+```bash
+# Show groups for current user
+groups
+id -Gn  # Alternative
+
+# Show groups for specific user
+groups username
+id -Gn username  # Alternative
+```
+=============================================================================
+┌───────┬─────────┬──────────────────────────────┐
+│ Value │ Symbol  │ Permission Description       │
+├───────┼─────────┼──────────────────────────────┤
+│   0   │ - - -   │ No access                    │
+├───────┼─────────┼──────────────────────────────┤
+│   1   │ - - x   │ Execute only                 │
+├───────┼─────────┼──────────────────────────────┤
+│   2   │ - w -   │ Write access only            │
+├───────┼─────────┼──────────────────────────────┤
+│   3   │ - w x   │ Write and execute            │
+├───────┼─────────┼──────────────────────────────┤
+│   4   │ r - -   │ Read only                    │
+├───────┼─────────┼──────────────────────────────┤
+│   5   │ r - x   │ Read and execute             │
+├───────┼─────────┼──────────────────────────────┤
+│   6   │ r w -   │ Read and write               │
+├───────┼─────────┼──────────────────────────────┤
+│   7   │ r w x   │ Read, write, and execute     │
+└───────┴─────────┴──────────────────────────────┘
+
+## Quick Reference Examples
+
+### Common File Permission Combinations:
+=============================================================================
+## File and Directory Permissions
+
+### Basic Permission Management
+```bash
+# Change permissions using symbolic notation
+chmod u+rwx filename  # Add read, write, execute for user
+chmod g-w filename    # Remove write for group
+chmod o=r filename    # Set only read for others
+chmod a+x filename    # Add execute for all
+
+# Change permissions using octal notation
+chmod 755 filename    # rwxr-xr-x
+chmod 644 filename    # rw-r--r--
+chmod 777 filename    # rwxrwxrwx (use cautiously)
+
+# Recursive permission changes
+chmod -R 755 directory/
+```
+
+### Advanced Access Control (ACL)
+```bash
+# View ACL permissions
+getfacl filename
+ls -l filename  # Basic permissions only
+
+# Set specific user permissions
+setfacl -m u:username:rwx filename
+setfacl -m u:username:r-- filename  # Read-only
+
+# Set specific group permissions
+setfacl -m g:groupname:rwx filename
+
+# Remove specific ACL entries
+setfacl -x u:username filename
+setfacl -x g:groupname filename
+
+# Remove all ACL entries
+setfacl -b filename
+```
+
+### Ownership Management
+```bash
+# Change owner
+sudo chown username filename
+sudo chown username:groupname filename  # Change both owner and group
+
+# Change group ownership
+sudo chgrp groupname filename
+
+# Recursive ownership changes
+sudo chown -R username:groupname directory/
+```
+
+## File System Monitoring and Logging
+
+### Activity Logging
+```bash
+# Start logging terminal session
+script filename.txt
+script -f /path/to/logfile.txt  # Force write
+
+# View real-time file access
+sudo tail -f /var/log/auth.log  # Authentication logs
+sudo tail -f /var/log/syslog    # System logs
+```
+
+### Permission Verification
+```bash
+# List file permissions
+ls -l filename
+ls -la directory/  # Include hidden files
+
+# Show detailed permissions
+stat filename
+```
+
+## Special Commands and Tips
+
+### Switching Users
+```bash
+# Switch to root
+sudo -i
+su -
+
+# Switch to specific user
+su - username
+sudo -u username -s  # Alternative
+```
+
+### Directory Management
+```bash
+# Create directory with specific permissions
+mkdir -m 755 dirname
+mkdir -p /path/to/nested/dirs  # Create parent directories as needed
+
+# Copy with permissions
+cp -p source dest  # Preserve permissions
+cp -a source dest  # Archive mode (preserve all attributes)
+```
+
+### Finding Files by Permission
+```bash
+# Find files with specific permissions
+find /path -type f -perm 644
+find /path -type d -perm 755  # Find directories
+
+# Find files owned by specific user/group
+find /path -user username
+find /path -group groupname
+```
+
+## Best Practices
+
+1. Always use the principle of least privilege
+2. Regularly audit permissions with `ls -l` and `getfacl`
+3. Use groups for managing shared access
+4. Backup before making major permission changes
+5. Document permission changes
+6. Use ACLs for complex permission requirements
+7. Avoid using 777 permissions
+8. Regular security audits of file permissions
+
+## Common Permission Patterns
+
+- `755` (rwxr-xr-x): Standard for directories
+- `644` (rw-r--r--): Standard for regular files
+- `700` (rwx------): Private directories
+- `600` (rw-------): Private files
+- `775` (rwxrwxr-x): Group-shared directories
+- `664` (rw-rw-r--): Group-shared files
