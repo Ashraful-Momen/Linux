@@ -78,6 +78,10 @@ total 4
 ----------------------------------------------------------------
 #give a file permission to the specific user (shuvo) : 
 ----------------------------------------------
+chown [options] <user>:<group> <file_or_directory>
+#Change both owner and group for a directory (including files within):
+>>> sudo chown -R alice:developers /path/to/directory
+--------------------------------------------------
 chown shuvo /home/ashraful/permission_check.txt
 chmod u+rwx /home/ashraful/permission_check.txt (for all users.)
 --------------------------------------------------
