@@ -3,11 +3,13 @@
 install cron >>> sudo apt install cron 
 
 ----------------
-edit cron  >>> cron -e
+edit cron  >>> crontab -e
 
 #then open a text editor . 
 #add the line in the bottom . 
 ----------------------------------------------------------
+#show the cron jobs list >>> crontab -l
+-----------------------------
 #how to check the php version in the system >>> which php
 ----------------------------------------------------------
 
