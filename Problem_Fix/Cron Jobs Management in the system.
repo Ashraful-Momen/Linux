@@ -1,0 +1,24 @@
+#cron job: 
+----------
+install cron >>> sudo apt install cron 
+
+----------------
+edit cron  >>> cron -e
+
+#then open a text editor . 
+#add the line in the bottom . 
+----------------------------------------------------------
+#how to check the php version in the system >>> which php
+----------------------------------------------------------
+
+(* * * * * - indecate time) where_php_installed_in_system  project_path/artisan schedule:run >> cron_log_path
+example: 
+-----------
+* * * * * /usr/local/bin/php /home/ashraful/Laravel7/instasure-microsite-main/artisan schedule:run >> /home/ashraful/Laravel7/cron.log 2>&1
+----------------------------------------------------------
+# check the cron log >>> cat /home/ashraful/Laravel7/cron.log
+
+#check cron status >>> sudo service cron status|restart|start|stop
+------------------------------------------------------------------
+
+**** After setup the cron in the system then restart the cron service . 
