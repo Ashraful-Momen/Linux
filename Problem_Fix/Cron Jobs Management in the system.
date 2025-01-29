@@ -17,6 +17,10 @@ edit cron  >>> crontab -e
 example: 
 -----------
 * * * * * /usr/local/bin/php /home/ashraful/Laravel7/instasure-microsite-main/artisan schedule:run >> /home/ashraful/Laravel7/cron.log 2>&1
+------------
+For the Server: 
+----------------
+* * * * * /usr/local/bin/php /nginx/instaweb/artisan schedule:run >> /nginx/instaweb/cron.log 2>&1
 ----------------------------------------------------------
 # check the cron log >>> cat /home/ashraful/Laravel7/cron.log
 
