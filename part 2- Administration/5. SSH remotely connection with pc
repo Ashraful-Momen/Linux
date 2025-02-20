@@ -205,3 +205,7 @@ Subsystem	sftp	/usr/lib/openssh/sftp-server
 #	AllowTcpForwarding no
 #	PermitTTY no
 #
+
+#connet with the ssh : 
+-----------------------
+>>> ssh userName@ip -p 22 (optional if port: 22)
