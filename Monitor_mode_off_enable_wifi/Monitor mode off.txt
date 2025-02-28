@@ -38,5 +38,37 @@ wlan0mon  IEEE 802.11  ESSID:off/any
 ┌──(shuvo㉿kali)-[~/InstallSoftware/Auto_Tor_IP_changer]
 └─$ sudo service NetworkManager restart
                                                                                                                                                                         
-┌──(shuvo㉿kali)-[~/InstallSoftware/Auto_Tor_IP_changer]
-└─$ 
+=================== if still now Monitor mode if not off then try those method =========================
+Your adapter is still stuck in **Monitor Mode** even after stopping it with `airmon-ng`. Try these additional steps:
+
+### 1. **Manually Set to Managed Mode**
+Run:  
+```bash
+sudo iwconfig wlx0013ef002c24 mode managed
+```
+Then check with:  
+```bash
+iwconfig
+```
+It should now show **Mode:Managed** instead of **Mode:Monitor**.
+
+### 2. **Bring Interface Down and Up**
+If it's still in monitor mode, try:  
+```bash
+sudo ip link set wlx0013ef002c24 down
+sudo iwconfig wlx0013ef002c24 mode managed
+sudo ip link set wlx0013ef002c24 up
+```
+
+### 3. **Reload Driver (If Needed)**
+If the issue persists, reload the Wi-Fi driver:  
+```bash
+sudo modprobe -r rtl8xxxu
+sudo modprobe rtl8xxxu
+```
+Then restart Network Manager:  
+```bash
+sudo systemctl restart NetworkManager
+```
+
+Check again with `iwconfig`. Let me know if this helps! 🚀
