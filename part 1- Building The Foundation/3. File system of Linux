@@ -35,9 +35,19 @@ file related command:
 
 >>> head => default display the first 10 lines .  
 
->>> tail -h => defualt display the first 10 lines . 
+>>> tail file_name => show the content of file . 
 
 >>> tail -f => follow the end of a chaning of file 
+----------------------------------------------------------------------------------------------
+#special command for 'tail' : 
+------------------------------
+
+- `tail -n 10 testCommand.txt` → Show the last 10 lines (default is 10).
+- `tail -f testCommand.txt` → Continuously display new lines as they are added (useful for logs).
+- `tail -c 50 testCommand.txt` → Show the last 50 bytes of the file.
+
+
+Let me know if you need anything else! 🚀
 ----------------------------------------------------------------------------------------------
 
 check the position of the folder: 
