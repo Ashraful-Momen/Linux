@@ -22,12 +22,12 @@ dir1  dir2  dir3  file1  file2  file3
 
 ==================================================================
 
-#take archiving dir1 dir2 , file1, file2
+#take archiving multiple folder and file =>  dir1 dir2 , file1, file2
 
 -----------------------------------------
 
 ┌──(shuvo㉿kali)-[~/Desktop/Linux/part 1/practise_archive]
-└─$ tar cvf archive.tar dir1 dir2 file1 file2
+└─$ tar cvf archive_name.tar dir1 dir2 file1 file2
 dir1/
 dir2/
 file1
