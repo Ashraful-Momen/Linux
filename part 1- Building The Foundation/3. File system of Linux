@@ -46,8 +46,6 @@ file related command:
 - `tail -f testCommand.txt` → Continuously display new lines as they are added (useful for logs).
 - `tail -c 50 testCommand.txt` → Show the last 50 bytes of the file.
 
-
-Let me know if you need anything else! 🚀
 ----------------------------------------------------------------------------------------------
 
 check the position of the folder: 
