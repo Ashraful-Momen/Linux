@@ -5,7 +5,9 @@
 
 >>>clt + z => stop (suspended) . run in the background .
 
->>>fg %[jobs_number] => which is running in the background . 
+>>>jobs => check the jobs number . 
+
+>>>fg %jobs_number => which is running in the background . 
 
 >>>clear => clear the content from terminal .
 
