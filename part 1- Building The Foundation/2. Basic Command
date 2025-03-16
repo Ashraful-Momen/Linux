@@ -37,13 +37,15 @@
 terminal shortcut :
 ---------------------
 
->>> clt + a => Move cursor to the begining . 
+>>> clt + a => Move cursor to the begining .
 
->>> clt + e => Move cursor to the end . 
+#before use the command use => clt+a , then use clt+k / clt+y
 
 >>> clt + k => kill = Cut the line . 
 
 >>> clt + y => yang = past . 
+
+>>> clt + e => Move cursor to the end . 
 
 >>> clt + l => clear the screen . 
 
