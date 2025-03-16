@@ -53,6 +53,31 @@ check the position of the folder:
 >>> cd / => goto the root dir. 
 
 ----------------------------------------------------------------------------------------------
+#show the bash history file location : 
+--------------------------------------
+┌──(ashraful㉿kali)-[/]
+└─$ ls -l ~/.bash_history
+-rw------- 1 ashraful ashraful 70 Jun 30  2024 /home/ashraful/.bash_history
+
+
+┌──(ashraful㉿kali)-[/]
+└─$ cd ~
+                                                                                
+┌──(ashraful㉿kali)-[~]
+└─$ pwd
+/home/ashraful
+                                                                                
+┌──(ashraful㉿kali)-[~]
+└─$ cat .bash_history
+whoami
+htop
+whoami
+ifconfig
+cd "themes"
+whoami
+
+
+     
 #show the history of terminal command : 
 -----------------------------------------
 >>>sudo  cat bash_history  => retain the last 500 command used by the users . 
