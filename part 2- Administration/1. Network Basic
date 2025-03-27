@@ -68,10 +68,21 @@ default via 192.168.174.2 dev eth0 proto dhcp src 192.168.174.128 metric 100
 
 #another way to find the dns server => 
 --------------------------------------
-┌──(shuvo㉿kali)-[~/Desktop/Linux/part 2- Administration]
-└─$ traceroute instasure.xyz
-traceroute to instasure.xyz (36.255.70.101), 30 hops max, 60 byte packets
- 1  _gateway (192.168.174.2)  1.255 ms  0.593 ms  1.079 ms^C
+┌──(ashraful㉿kali)-[~]
+└─$ traceroute google.com
+traceroute to google.com (142.250.196.78), 30 hops max, 60 byte packets
+ 1  _gateway (192.168.3.1)  1.024 ms  0.894 ms  0.834 ms
+ 2  119.148.19.193 (119.148.19.193)  85.838 ms  1.091 ms  1.126 ms
+ 3  172.16.55.217 (172.16.55.217)  42.841 ms  43.121 ms  43.338 ms
+ 4  172.31.0.21 (172.31.0.21)  42.893 ms  43.015 ms  43.070 ms
+ 5  10.98.99.1 (10.98.99.1)  42.714 ms  42.900 ms  42.960 ms
+ 6  10.220.33.61 (10.220.33.61)  42.368 ms  45.514 ms  45.449 ms
+ 7  10.220.12.222 (10.220.12.222)  45.522 ms  43.463 ms  43.415 ms
+ 8  10.131.166.164 (10.131.166.164)  46.986 ms  46.863 ms  48.935 ms
+ 9  72.14.221.138 (72.14.221.138)  74.062 ms  78.480 ms  78.362 ms
+10  * * *
+11  216.239.43.234 (216.239.43.234)  76.803 ms maa03s46-in-f14.1e100.net (142.250.196.78)  76.669 ms 142.251.49.216 (142.251.49.216)  70.902 ms
+
 
 
 
