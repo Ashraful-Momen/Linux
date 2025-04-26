@@ -12,3 +12,54 @@ so we have to use ">>" sign for append
 
 -------------------------------------------------------
 '<' this sign is user for , if some command written inside the file then execute the command from a file ....
+
+
+================================================================================================
+In Linux, the `<` symbol is used for **input redirection**. It tells the shell to take the input for a command **from a file** instead of from the keyboard (standard input).
+
+
+Now you want to pass this file as input to the `sort` command (which sorts lines alphabetically).
+
+```bash
+sort < input.txt
+```
+
+**Output:**
+```
+hello
+world
+```
+
+If the file contained:
+```
+world
+hello
+```
+
+Then `sort < input.txt` would output:
+```
+hello
+world
+```
+
+---
+
+### 📝 Another Example: Executing Commands from a File
+
+If a file contains **actual shell commands**, you can pass it to a shell like this:
+
+Suppose `commands.sh` contains:
+```bash
+echo "This is a test"
+ls
+```
+
+You can run:
+```bash
+bash < commands.sh
+```
+
+This feeds the contents of `commands.sh` into the `bash` shell to execute the commands.
+
+---
+
