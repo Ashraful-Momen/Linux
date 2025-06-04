@@ -1,4 +1,4 @@
-#administrators working with Kali Linux. This guide covers:
+###Administrators working with Kali Linux. This guide covers:
 
 **Core Topics:**
 - Bash fundamentals and command structure
