@@ -1,4 +1,4 @@
-I'll create a comprehensive Bash reference guide for system administrators working with Kali Linux. This will cover essential concepts, commands, and techniques you'll need.I've created a comprehensive Bash guide specifically tailored for system administrators working with Kali Linux. This guide covers:
+#administrators working with Kali Linux. This guide covers:
 
 **Core Topics:**
 - Bash fundamentals and command structure
