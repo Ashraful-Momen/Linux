@@ -88,5 +88,5 @@ whoami
      
 #show the history of terminal command : 
 -----------------------------------------
->>>sudo  cat bash_history  => retain the last 500 command used by the users . 
+>>>sudo  cat .bash_history  => retain the last 500 command used by the users . 
 
