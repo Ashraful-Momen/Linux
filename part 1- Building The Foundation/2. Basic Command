@@ -49,6 +49,8 @@ terminal shortcut :
 
 >>> clt + l => clear the screen . 
 
+>>> clt + r => search command already used in terminal.
+
 --------------------------------------------------
 
 
