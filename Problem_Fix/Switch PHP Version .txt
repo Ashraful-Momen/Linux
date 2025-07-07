@@ -11,3 +11,14 @@ php -v
 sudo rm /usr/local/bin/php
 sudo ln -s /usr/bin/php8.4 /usr/local/bin/php
 php -v
+
+#show the system php : 
+------------------------
+>>> sudo update-alternatives --config php 
+
+
+
+┌──(ashraful㉿kali)-[/usr/bin]
+└─$ whereis php
+php: /usr/bin/php /usr/lib/php /etc/php /usr/local/bin/php /opt/lampp/bin/php /usr/share/man/man1/php.1.gz
+
