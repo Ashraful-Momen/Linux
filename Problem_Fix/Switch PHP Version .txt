@@ -1,0 +1,13 @@
+//switch php 7 : 
+------------------
+sudo rm /usr/local/bin/php
+sudo ln -s /opt/lampp/bin/php /usr/local/bin/php
+php -v
+
+
+
+//switch php8.4: 
+-----------------
+sudo rm /usr/local/bin/php
+sudo ln -s /usr/bin/php8.4 /usr/local/bin/php
+php -v
