@@ -1,6 +1,6 @@
 process : 
 ---------
->>> ps - | list process of current session.
+>>> ps -l | list process of current session.
 
 >>> ps -f | List process of full formate .
 
