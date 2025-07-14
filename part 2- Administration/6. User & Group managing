@@ -76,7 +76,7 @@ ashraful  momen  shuvo | "those the name of groups"
 >>> sudo usermod -aG root shuvo | add shuvo user to root (users) group
 >>> delgroup tom | delete the group 
 >>> getent group cat | check the group cat exits or not 
->>> groupmod -n cats cat | change group name cat to cats
+>>> groupmod -n cats cat | change group name cat to cats >>> groupmod -n <new_name> <prevous_name> 
 
 ---------------------------------------------------------------------------------------------------------------------------------
 └─$ id
