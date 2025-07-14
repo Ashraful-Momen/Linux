@@ -72,7 +72,7 @@ switch one user to another :
 ashraful  momen  shuvo | "those the name of groups"
 ----------------------------------------------------
 >>> addgroup cats | create a new gropu cat 
->>> usermod -g cat tom | current user change cat groput to tom group  =>  [sudo usermod -g <new-group> tom]
+>>> usermod -g cat tom | current user change cat groput to tom group  =>  [sudo usermod -g <new-group> <old-group-name>]
 >>> sudo usermod -aG root shuvo | add shuvo user to root (users) group
 >>> delgroup tom | delete the group 
 >>> getent group cat | check the group cat exits or not 
