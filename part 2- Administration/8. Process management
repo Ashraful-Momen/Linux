@@ -45,8 +45,13 @@ process :
 
 --------------------------Process Management : Tmux--------------------------------------------------
 ----------------------------------------------------------------------------
+#start the tmux : 
+>>> tmux
+
+#run any command with terminal after that run on background : 
 >>> tmux | back & forground like previous jobs. 
     >>>clt+b , then D | detuch tmux. 
+
 
 >>> tmux list-sessions - List sessions. 
 
