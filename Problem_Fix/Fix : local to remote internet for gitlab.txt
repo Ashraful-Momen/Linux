@@ -1,0 +1,76 @@
+#allow ip and port and secure the system : 
+----------------------------------------------
+to get the gitlab by public ip => 
+
+dev@dev:~$ cd  /etc/netplan/
+dev@dev:/etc/netplan$ ls
+00-installer-config.yaml  00-installer-config.yaml.bak
+dev@dev:/etc/netplan$ cat 00-installer-config.yaml
+cat: 00-installer-config.yaml: Permission denied
+dev@dev:/etc/netplan$ sudo cat 00-installer-config.yaml
+[sudo] password for dev: 
+# This is the network config written by 'subiquity'
+#network:
+#  ethernets:
+#    enp1s0:
+#      dhcp4: true
+#  version: 2
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp1s0:
+      dhcp4: no
+      addresses: [119.148.19.197/24]
+      #addresses: [192.168.3.99/24]
+      #gateway4: 192.168.3.1
+      gateway4: 119.148.19.193
+      nameservers:
+          addresses: [8.8.8.8, 8.8.4.4]
+
+
+
+----------------------------------------------------------
+dev@dev:~$ sudo ufw reset
+Resetting all rules to installed defaults. This may disrupt existing ssh
+connections. Proceed with operation (y|n)? y
+Backing up 'user.rules' to '/etc/ufw/user.rules.20250804_105928'
+Backing up 'before.rules' to '/etc/ufw/before.rules.20250804_105928'
+Backing up 'after.rules' to '/etc/ufw/after.rules.20250804_105928'
+Backing up 'user6.rules' to '/etc/ufw/user6.rules.20250804_105928'
+Backing up 'before6.rules' to '/etc/ufw/before6.rules.20250804_105928'
+Backing up 'after6.rules' to '/etc/ufw/after6.rules.20250804_105928'
+
+dev@dev:~$ sudo ufw default deny incoming
+Default incoming policy changed to 'deny'
+(be sure to update your rules accordingly)
+dev@dev:~$ sudo ufw default allow outgoing
+Default outgoing policy changed to 'allow'
+(be sure to update your rules accordingly)
+dev@dev:~$ sudo ufw allow from 119.148.19.196 to any port 2222 proto tcp
+Rules updated
+dev@dev:~$ sudo ufw allow from 119.148.19.196 to any port 80 proto tcp
+Rules updated
+dev@dev:~$ sudo ufw enable
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+Firewall is active and enabled on system startup
+dev@dev:~$ sudo ufw status verbose
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), deny (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+2222/tcp                   ALLOW IN    119.148.19.196            
+80/tcp                     ALLOW IN    119.148.19.196            
+
+dev@dev:~$ docker ps -a
+permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.48/containers/json?all=1": dial unix /var/run/docker.sock: connect: permission denied
+dev@dev:~$ sudo docker ps -a
+CONTAINER ID   IMAGE                   COMMAND                  CREATED         STATUS                     PORTS                                                                                                               NAMES
+96a883763b67   gitlab/gitlab-ce        "/assets/wrapper"        7 days ago      Up 57 minutes (healthy)    0.0.0.0:22->22/tcp, [::]:22->22/tcp, 0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp   gitlab
+3a219832eb47   phpmyadmin/phpmyadmin   "/docker-entrypoint.…"   5 months ago    Up 57 minutes              0.0.0.0:81->80/tcp, [::]:81->80/tcp                                                                                 pma
+ed30e62bea2d   mysql:latest            "docker-entrypoint.s…"   5 months ago    Up 57 minutes              33060/tcp, 0.0.0.0:3307->3306/tcp, [::]:3307->3306/tcp                                                              db
+398f82cd58a8   mysql                   "docker-entrypoint.s…"   14 months ago   Exited (0) 14 months ago                                                                                                                       gallant_liskov
+9d8caec6922d   mysql:latest            "docker-entrypoint.s…"   14 months ago   Exited (0) 14 months ago                                                                                                                       cranky_borg
