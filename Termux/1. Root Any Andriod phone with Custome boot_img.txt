@@ -1,0 +1,94 @@
+# Download the boot.img full Link -> mirror 2 : https://xmfirmwareupdater.com/miui/laurel/stable/V12.0.26.0.RFQMIXM/
+
+1. Download the custom recovery img which have flash_all.sh file and also boot.img file . 
+
+2. then goto the fastboot => volumne down + power btn . 
+
+
+3. if you get the critical unlock error => 
+
+solve : error🔥 Run This First (Critical Unlock):
+1️⃣ Boot your phone to FASTBOOT mode.
+
+Then execute:
+
+>>> fastboot flashing unlock_critical
+
+4. then goto the fastboot mode again and run those command for flash with custom rom. 
+
+>>> cd goto the download_imag_extract_file/  | where showing the flash_all.sh file 
+
+5.then run this comment 
+>>>bash flash_all.sh
+
+6. After complete the boot download this Magisk for root : https://github.com/topjohnwu/Magisk/releases/tag/v29.0
+
+--------------------  Main Step to root the phone : Last Step for root -------------------------------------
+
+=> adb not working in the fastboot mode . 
+
+#check the adb device connected
+
+┌─[shuvo@parrot]─[~/Downloads/FastBoot Room For MI A3/room for boot up phone/laurel_sprout_global_images_V12.0.26.0.RFQMIXM_11.0/images]
+└──╼ $adb devices 
+List of devices attached
+49bb28f66508	device
+
+
+# copy the boot.img file to the phone storage : 
+
+┌─[shuvo@parrot]─[~/Downloads/FastBoot Room For MI A3/room for boot up phone/laurel_sprout_global_images_V12.0.26.0.RFQMIXM_11.0/images]
+└──╼ $adb push boot.img /sdcard/
+boot.img: 1 file pushed, 0 skipped. 29.3 MB/s (67108864 bytes in 2.183s)
+
+
+#install the Magisk.apk file by adb  => https://github.com/topjohnwu/Magisk/releases/tag/v29.0
+
+┌─[✗]─[shuvo@parrot]─[~/Downloads/FastBoot Room For MI A3/Magisk For root]
+└──╼ $adb install Magisk-v29.0.apk 
+Performing Streamed Install
+Success
+
+
+# open the Magisk app in the phone then select -> Magisk install option . 
+
+2. Magisk → Install (Root)
+
+    This is the ROOT installation process.
+
+    This is the one you need.
+
+
+#select the boot.img file . run the installation . 
+
+
+# then run >>>> 
+
+┌─[shuvo@parrot]─[~/Downloads/FastBoot Room For MI A3/Magisk For root]
+└──╼ $adb shell ls /sdcard/Download/
+magisk_patched-29000_Yn2mp.img
+
+
+# then run => 
+
+┌─[✗]─[shuvo@parrot]─[~/Downloads/FastBoot Room For MI A3/Magisk For root]
+└──╼ $adb pull /sdcard/Download/magisk_patched-29000_Yn2mp.img 
+/sdcard/Download/magisk_patched-29000_Yn2mp.img: 1 file pulled, 0 skipped. 32.2 MB/s (67108864 bytes in 1.988s)
+
+
+
+#goto to the fastboot mode :  then run  
+
+┌─[shuvo@parrot]─[~/Downloads/FastBoot Room For MI A3/Magisk For root]
+└──╼ $fastboot flash boot magisk_patched-29000_Yn2mp.img
+Sending 'boot_a' (65536 KB)                        OKAY [  2.035s]
+Writing 'boot_a'                                   OKAY [  0.363s]
+Finished. Total time: 2.406s
+
+
+┌─[shuvo@parrot]─[~/Downloads/FastBoot Room For MI A3/Magisk For root]
+└──╼ $fastboot reboot
+Rebooting                                          OKAY [  0.000s]
+Finished. Total time: 0.050s
+
+
