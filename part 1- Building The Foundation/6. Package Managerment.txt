@@ -33,11 +33,11 @@
 #>>> man pkg_name | show the menual of the pkg_name. 
 #>>> file file_name | show the details of file name . 
 #>>> apropos pkg | show the details in one line . 
-#>>> whereis pkg_name | where file_exit show the location . 
 #>>> whoami | show the current user . 
 #>>> locate file_name | show the file location and details what's inside the files . 
 #>>> which  file_name | work for (>>> ln -s folder_current_location /usr/local/bin) , show the file symbolic link file location of /usr/local/bin/file_name-"which use also command " . 
-#>>> 
+#>>> whereis pkg_name | where file_exit show the location and symbolic link show the path . 
+
 
 
 ┌──(ashraful㉿kali)-[~/Linux]
