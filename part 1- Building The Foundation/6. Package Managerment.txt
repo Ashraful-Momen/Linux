@@ -1,8 +1,8 @@
 #package management: 
 ---------------------
 
-#>>> apt-cache search pkg_name or >>> apt search pkg_name | search the pkg name . 
-#>>> apt-cache show pkg_name or >>> apt show pkg_name | show the pkg name . 
+#>>> apt-cache search pkg_name or >>> apt search pkg_name | search the pkg name . Find packages by name or description
+#>>> apt-cache show pkg_name or >>> apt show pkg_name | show the pkg  Display detailed info about a specific package ( version , mantainer...)
 #>>> apt-get install pkg_name or >>> apt install pkg_name | install the pkg name . 
 #>>> apt-get remove pkg_name or >>> apt remove pkg_name | remove the pkg name . 
 #>>> apt-get autoremove pkg_name or >>> apt autoremove pkg_name | autoremove the pkg which not use and last remove pkg data also. 
