@@ -44,6 +44,13 @@ Address: 142.250.195.78
 Name:	google.com
 Address: 2404:6800:4007:823::200e
 
+------------------------------------------------------------------------
+#show the public ip => 
+-------------------------
+
+┌──(ashraful㉿kali)-[~/Laravel_version_test/LaravelPHP83Docker/instasure-dockerized]
+└─$ curl ifconfig.me                                                              
+119.148.19.193       
 
 ------------------------------------------------------------------------
 #another way to find the dns server => 
