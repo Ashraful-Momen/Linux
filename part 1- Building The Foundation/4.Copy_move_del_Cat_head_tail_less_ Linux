@@ -68,6 +68,8 @@
 
 >>> mv /tem/move_item  ~/Document/  | move the home/Documents. 
 
+>>> mv -p /parent/child/file | if the folder exist then not get error , and create recursive folder
+
 
 -------------------------------------------------------------------------------------
 ---------------------------------Remove----------------------------------------------------
@@ -82,4 +84,5 @@
 
 >>> rm -rf /tmp/testDir -force remove . 
 -------------------------------------------------------------------------------------
+
 
