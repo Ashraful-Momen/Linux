@@ -4,6 +4,30 @@ lo - lookback address / localhost
 
 wlan0 -  wireless network
 
+public_ip - curl ifconfig.me 
+
+private ip - ifconfig
+
+gateway - router ip where 
+
+private_ip(pc/phone) ---------> router (gateway_ip)-----------> public_ip(isp) -------------> internet---------> public_ip---------> router--------> private_ip
+
+
+#famous port : every service expose with port . http service expose 80 port 
+
+with machine ip => service of http =>  machine_ip : port 
+
+
+DNS (name of ip ) = dnsgroupe.net(http://36.255.69.72:8081/)
+
+
+
+Dns resolve => 
+subnet => 
+
+nameserver => 
+
+ns1 , ns2, => 
 ------------------------------------------------------------------------
 check those address => ifconfig
 -------------------------------
@@ -117,7 +141,290 @@ netstat  -p => show the name of programme .
 
 
 ------------------------------------------------------------------------
+
+
+---
+
+# 🌐 Network Notes (A → Z)
+
+### 🖧 Interfaces
+
+* **eth0** → Wired network card (LAN cable)
+* **lo** → Loopback interface (localhost, `127.0.0.1`)
+* **wlan0** → Wireless network card (Wi-Fi)
+
+---
+
+### 🌍 IP Types
+
+* **public\_ip** → Assigned by ISP, visible on the internet (`curl ifconfig.me`)
+* **private\_ip** → Local address (`ifconfig` shows `192.168.x.x`, `10.x.x.x`, `172.16–31.x.x`)
+
+---
+
+### 🚪 Gateway
+
+👉 Default router IP (connects LAN → Internet)
+
+```
+[PC/Phone: private_ip] ---> [Router: gateway_ip] ---> [ISP: public_ip] ---> 🌐 Internet
+```
+
+---
+
+### 📡 Flow of Communication
+
+```
+private_ip (PC/Phone)
+      ↓
+   Router (gateway_ip)
+      ↓
+  ISP assigns public_ip
+      ↓
+     Internet 🌐
+      ↓
+ Destination public_ip
+      ↓
+  Their Router
+      ↓
+ private_ip (server/service)
+```
+
+---
+
+### 🔑 Ports
+
+👉 Every service listens on a **port**.
+
+* HTTP → `80`
+* HTTPS → `443`
+* SSH → `22`
+* MySQL → `3306`
+
+```
+http://machine_ip:80  
+http://36.255.69.72:8081   (custom port example)
+```
+
+---
+
+### 📛 DNS (Domain Name System)
+
+👉 Converts names ↔ IPs
+
+```
+DNS name: dnsgroupe.net  
+Resolved IP: 36.255.69.72:8081
+```
+
+---
+
+### 🔎 DNS Resolve Workflow
+
+```
+Browser asks → OS → Resolver (ISP DNS)
+    ↓
+   Root DNS (.)
+    ↓
+   TLD DNS (.net, .com)
+    ↓
+   Authoritative DNS (ns1 / ns2)
+    ↓
+   Final IP returned → Connection
+```
+
+---
+
+### 🗂️ Subnet
+
+👉 A **range of IPs** inside a network, defined by subnet mask.
+
+* Example: `192.168.1.0/24` → hosts `192.168.1.1 → 192.168.1.254`
+
+```
+[192.168.1.0/24] = Network
+  ├─ 192.168.1.1 → Router
+  ├─ 192.168.1.2 → PC
+  └─ 192.168.1.3 → Phone
+```
+
+---
+
+### 📖 Nameserver
+
+👉 Server that answers DNS queries.
+
+* **ns1**, **ns2** → Authoritative DNS servers for a domain.
+
+```
+dnsgroupe.net
+   ├─ ns1.provider.com
+   └─ ns2.provider.com
+```
+
+---
+
+✅ Now you have **A → Z flow**:
+
+1. Device uses **eth0/wlan0/lo**
+2. Gets **private\_ip**
+3. Sends to **gateway (router\_ip)**
+4. Router → **NAT → public\_ip**
+5. Traffic goes through **ports**
+6. DNS resolves domain → IP via **nameservers (ns1, ns2)**
+7. Uses **subnet** rules for local communication
+8. Packets reach target server’s **public\_ip**
+
+---
+
+
+
 ------------------------------------------------------------------------
+
+---
+
+# 🌐 Networking A → Z Cheatsheet
+
+---
+
+### 🖧 Interfaces
+
+```
+eth0   = Wired network  
+wlan0  = Wireless network  
+lo     = Loopback (127.0.0.1 / localhost)
+```
+
+---
+
+### 🌍 IP Types
+
+```
+Public IP  = Unique global address (check: curl ifconfig.me)  
+Private IP = Local LAN address (check: ifconfig)
+```
+
+---
+
+### 🚪 Gateway (Router IP)
+
+👉 Router connects your LAN to ISP.
+
+```
+[PC/Phone: private_ip] ---> [Router: gateway_ip] ---> [ISP: public_ip] ---> 🌐 Internet
+```
+
+---
+
+### 🔄 NAT (Network Address Translation)
+
+👉 Router changes private IP → public IP before going out.
+
+```
+192.168.1.10:5000 --> NAT --> 203.0.113.5:40001
+```
+
+---
+
+### 🛣️ Routing Table
+
+👉 Map of where packets should go.
+
+```
+Destination       Next Hop
+0.0.0.0/0         ISP Gateway
+192.168.1.0/24    Local LAN
+10.0.0.0/24       VPN Tunnel
+```
+
+---
+
+### 🔑 Ports
+
+👉 Services run on ports.
+
+```
+HTTP   → 80  
+HTTPS  → 443  
+SSH    → 22  
+MySQL  → 3306  
+
+Access: http://machine_ip:port  
+Example: http://36.255.69.72:8081
+```
+
+---
+
+### 📛 DNS (Domain Name System)
+
+👉 Converts **domain name → IP**
+
+```
+dnsgroupe.net  --->  36.255.69.72
+```
+
+---
+
+### 🔎 DNS Resolve Workflow
+
+```
+Browser → Resolver (ISP)  
+       → Root DNS (.)  
+       → TLD DNS (.net, .com)  
+       → Authoritative DNS (ns1, ns2)  
+       → Returns IP
+```
+
+---
+
+### 🗂️ Subnet
+
+👉 Defines IP range in a network.
+
+```
+192.168.1.0/24  
+ ├─ Router: 192.168.1.1  
+ ├─ PC:     192.168.1.2  
+ └─ Phone:  192.168.1.3
+```
+
+---
+
+### 📖 Nameservers
+
+👉 Special servers that answer DNS lookups.
+
+```
+dnsgroupe.net  
+ ├─ ns1.provider.com  
+ └─ ns2.provider.com
+```
+
+---
+
+### 📡 Full Data Flow (Complete View)
+
+```
+[PC/Phone: private_ip]  
+        ↓  
+   [Router: gateway_ip]  
+        ↓ (NAT)  
+   [ISP: public_ip]  
+        ↓  
+     🌐 Internet  
+        ↓  
+ [Server: public_ip]  
+        ↓  
+   [Server Router]  
+        ↓  
+[Target Machine: private_ip + port/service]
+```
+
+---
+
+This gives you a **full A → Z compact note with ASCII diagrams** ✅
+
+
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
