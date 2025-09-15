@@ -84,5 +84,117 @@
 
 >>> rm -rf /tmp/testDir -force remove . 
 -------------------------------------------------------------------------------------
+#create multiple recursive folder/file => 
+------------------------------------------
+mkdir -p storage/app/instasure/{user/{admin,parent_dealer,child_dealer},life_and_health/{package,order,claim},tele_medicine/{package,order},hdc/{package,order},motor_insurance/{package,order,claim},fire_insurance/{package,order,claim},theft_insurance/{package,order,claim},device_insurance/{package,order,claim},travel_insurance/{package,order,claim},cattle_insurance/{package,order,claim}}
 
+file structures => 
+------------------
+  /instasure 
+                
+                /user
+                    /admin
+                        /img
+                        /file
+                    /parent_dealer
+                        /img
+                        /file
+                    /child_dealer
+                        /img
+                        /file
+                    
+                /life_and_health
+                    /package
+                        /pkg_img/
+                        /pkg_file/
+                    /order
+                        /order_img/
+                        /order_file/
+                    /claim
+                        /claim_img/
+                        /claim_file/
+                        
+                    
+                /tele_medicine
+                    /package
+                        /pkg_img/
+                        /pkg_file/
+                    /order
+                        /order_img/
+                        /order_file/
+                   
+                /hdc
+                    /package
+                        /pkg_img/
+                        /pkg_file/
+                    /order
+                        /order_img/
+                        /order_file/
+                    
+                /motor_insurance
+                    /package
+                        /pkg_img/
+                        /pkg_file/
+                    /order
+                        /order_img/
+                        /order_file/
+                    /claim
+                        /claim_img/
+                        /claim_file/
+                        
+                /fire_insurance
+                    /package
+                        /pkg_img/
+                        /pkg_file/
+                    /order
+                        /order_img/
+                        /order_file/
+                    /claim
+                        /claim_img/
+                        /claim_file/
+                        
+                /theft_insurance
+                    /package
+                        /pkg_img/
+                        /pkg_file/
+                    /order
+                        /order_img/
+                        /order_file/
+                    /claim
+                        /claim_img/
+                        /claim_file/
+                        
+                /device_insurance
+                    /package
+                        /pkg_img/
+                        /pkg_file/
+                    /order
+                        /order_img/
+                        /order_file/
+                    /claim
+                        /claim_img/
+                        /claim_file/
+                        
+                /travel_insurance
+                    /package
+                        /pkg_img/
+                        /pkg_file/
+                    /order
+                        /order_img/
+                        /order_file/
+                    /claim
+                        /claim_img/
+                        /claim_file/
+                        
+                /cattle_insurance
+                    /package
+                        /pkg_img/
+                        /pkg_file/
+                    /order
+                        /order_img/
+                        /order_file/
+                    /claim
+                        /claim_img/
+                        /claim_file/
+                    
 
