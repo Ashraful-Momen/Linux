@@ -8,6 +8,8 @@ process :
 
 >>> ps -u user_name | List process of user_name.
 
+>>> ps -x | Show processes that do not have a controlling terminal (like daemons: MySQL, nginx, etc.)
+
 >>> ps -p [PID] | Display process information of PID
 ----------------------------------------------------------------------------
 ----------------------------------Kill the process ------------------------------------------
@@ -66,4 +68,5 @@ mysql    1837407  1.0  2.5 2891768 209048 ?      Ssl  Aug30 342:28 /usr/sbin/mys
 >>> nohup command & | run command in background even session in background .
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
+
 
