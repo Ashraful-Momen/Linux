@@ -23,4 +23,17 @@ so we have to use ">>" sign for append
 ┌──(ashraful㉿kali)-[~/Instasure/MicroService_Python]
 └─$ cat < hello.txt 
 Hello world
-                 
+
+
+-------------------------------------------- optional part ------------------------------------
+
+#addition save with the python : 
+---------------------------------
+┌──(ashraful㉿kali)-[~/Instasure/MicroService_Python]
+└─$ python3 -c "print(2+2)" > addition.txt
+
+#execute the command from the file : 
+-------------------------------------
+┌──(ashraful㉿kali)-[~/Instasure/MicroService_Python]
+└─$ cat < addition.txt 
+4
