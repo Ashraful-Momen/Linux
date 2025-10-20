@@ -12,3 +12,15 @@ so we have to use ">>" sign for append
 
 -------------------------------------------------------
 '<' this sign is useing for , take input from any file . if some command written inside the file then execute the command from a file ....
+
+#save hello file: 
+--------------------
+┌──(ashraful㉿kali)-[~/Instasure/MicroService_Python]
+└─$ echo "Hello world" > hello.txt                    
+
+#run command from inside the file '<' with this sign : 
+-------------------------------------------------------
+┌──(ashraful㉿kali)-[~/Instasure/MicroService_Python]
+└─$ cat < hello.txt 
+Hello world
+                 
