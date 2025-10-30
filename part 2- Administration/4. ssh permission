@@ -8,7 +8,7 @@
 
  >>> sudo nano /etc/ssh/sshd_config 
 
- #uncomment this line - PermitRootLogin yes , and password authentication yes. then save 
+ #uncomment this line - PermitRootLogin yes , and password authentication yes, UsePAM yes. then save 
 
  >>> sudo ssh restart.
 
