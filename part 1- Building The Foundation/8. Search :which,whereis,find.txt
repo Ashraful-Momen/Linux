@@ -1,0 +1,309 @@
+
+# Find Any Folder Name: 
+------------------------
+>>>find / -type d -name "anyFolderName" 2>/dev/null
+
+### 🔍 Explanation:
+
+* `find /` → start searching from root
+* `-type d` → look only for **directories (folders)**
+* `-name "anyFolderName"` → match folder name exactly
+* `2>/dev/null` → hide “permission denied” errors
+
+---
+
+### Example (search inside home only — faster):
+
+```bash
+find ~/ -type d -name "anyFolderName"
+```
+
+### find word "passwd" among all file where folder name is "hello.txt"
+
+solv 1: 
+--------
+┌──(ashraful㉿kali)-[~/Instasure/Digital Card]
+└─$ find / -type f -name "hello.txt" -exec grep -Hn "passwd" {} \; 2>/dev/null
+/home/ashraful/Instasure/Digital Card/Test/hello.txt:4:passwd: 112233
+  
+solv 2:
+-------
+┌──(ashraful㉿kali)-[~/Instasure/Digital Card]
+└─$ grep -R --include="hello.txt" -Hn "passwd" ~/
+grep: /home/ashraful/.config/gtk-2.0: Permission denied
+/home/ashraful/Instasure/Digital Card/Test/hello.txt:4:passwd: 112233
+
+###here -H show the folderName -n show the lineNumber . 
+
+
+
+
+
+========================================================== Search Cheat Sheet ==================================================
+
+# Powerful cheatsheet — `find`, `which`, `whereis`, `grep`
+
+Quick, compact, practical — copy-paste these. I’ll show core options, common one-liners, and useful combos.
+
+---
+
+## `find` — locate files/directories by many attributes
+
+Search root (may be slow / need sudo):
+
+```bash
+find / -name "hello.txt" 2>/dev/null
+```
+
+Common options:
+
+* `-type f|d` — file or directory
+* `-iname` — case-INSENSITIVE name match
+* `-maxdepth N`, `-mindepth N` — limit depth
+* `-mtime +N / -N` — modified more than / less than N days
+* `-size +10M` — size greater than 10 megabytes (`c`=bytes, `k`, `M`, `G`)
+* `-perm /u=rwx` or `-perm 755` — permissions
+* `-user USER` — owner
+* `-empty` — empty file/dir
+* `-prune` — skip directories
+
+Powerful examples:
+
+* Find directories named `anyFolderName`:
+
+```bash
+find / -type d -name "anyFolderName" 2>/dev/null
+```
+
+* Case-insensitive file search, depth 3:
+
+```bash
+find ~/ -maxdepth 3 -type f -iname "*.log"
+```
+
+* Find files >100MB and print human readable sizes:
+
+```bash
+find /data -type f -size +100M -exec ls -lh {} \; | awk '{print $5, $9}'
+```
+
+* Find and delete (BE CAREFUL):
+
+```bash
+find ./tmp -type f -name "*.tmp" -delete
+```
+
+* Find files and run command on each (safer than `-exec ... \;` if many files use `+`):
+
+```bash
+find . -type f -name "*.py" -exec sed -n '1,120p' {} +
+```
+
+* Skip `.git` dirs (fast):
+
+```bash
+find . -path "./.git" -prune -o -type f -name "*.js" -print
+```
+
+Use `-print0` with `xargs -0` to handle spaces:
+
+```bash
+find . -type f -name "*.mp3" -print0 | xargs -0 md5sum
+```
+
+---
+
+## `which` vs `whereis`
+
+* `which <cmd>` — shows the executable path used by your shell (checks `$PATH`, follows shell aliases/functions only in some shells via `type`).
+
+```bash
+which python3
+```
+
+* `whereis <cmd>` — shows binary, source, and man locations (searches standard system paths).
+
+```bash
+whereis python3
+```
+
+* `type <cmd>` — most informative for shell-level info (alias, builtin, function, file).
+
+```bash
+type ls
+```
+
+Examples:
+
+```bash
+which gcc
+whereis gcc
+type grep
+```
+
+When to use:
+
+* Use `which` to know which binary will run in your current `$PATH`.
+* Use `whereis` to find docs/man/source quickly.
+* Use `type` to detect shell aliases/functions.
+
+---
+
+## `grep` — search inside files (text matching)
+
+Basic:
+
+```bash
+grep "passwd" hello.txt
+```
+
+Common flags:
+
+* `-R` / `-r` — recursive
+* `-n` — show line numbers
+* `-H` — always show filename
+* `-i` — case-insensitive
+* `-w` — match whole word
+* `-x` — match whole line
+* `-v` — invert match (show non-matching lines)
+* `-c` — count matches per file
+* `-l` — list filenames only (files that match)
+* `-L` — list filenames that don't match
+* `-o` — print only matched text
+* `-E` — extended regex (alternation etc.) — same as `egrep`
+* `-P` — Perl regex (if compiled with PCRE)
+* `-n --color=auto` — helpful defaults to see matches
+
+Examples:
+
+* Recursive search for `passwd` in files named `hello.txt`:
+
+```bash
+grep -R --include="hello.txt" -Hn "passwd" / 2>/dev/null
+```
+
+* Case-insensitive, whole-word, show context ±2 lines:
+
+```bash
+grep -Rniw -C2 "passwd" /etc 2>/dev/null
+```
+
+* Show only filenames containing the match:
+
+```bash
+grep -Rl "TODO" src/
+```
+
+* Count matches per file:
+
+```bash
+grep -R --include="*.py" -c "def " project/
+```
+
+* Invert to show files without the pattern:
+
+```bash
+grep -RL "copyright" docs/
+```
+
+* Print only the matched fragments (useful for extracting tokens):
+
+```bash
+grep -oE "[[:alnum:]._-]+@[[:alnum:].-]+\.[[:alpha:]]{2,6}" emails.txt
+```
+
+* Skip binary files:
+
+```bash
+grep -R --binary-files=without-match "passwd" /usr
+```
+
+Combine `find` + `grep` for precise control:
+
+```bash
+find /var/log -type f -name "*.log" -mtime -7 -print0 \
+  | xargs -0 grep -Hn "error"
+```
+
+Or with `-exec`:
+
+```bash
+find /var/log -type f -name "*.log" -mtime -7 -exec grep -Hn "error" {} +
+```
+
+---
+
+## Handy one-liners & patterns
+
+* Find files named `hello.txt` then show lines with `passwd`:
+
+```bash
+find / -type f -name "hello.txt" -exec grep -Hn "passwd" {} \; 2>/dev/null
+```
+
+* Find directories named `anyFolderName` and list contents:
+
+```bash
+find / -type d -name "anyFolderName" -exec ls -la {} \; 2>/dev/null
+```
+
+* Find large files and interactively delete (safer):
+
+```bash
+find . -type f -size +500M -print0 | xargs -0 -n1 ls -lh
+```
+
+* Show location and man page for a command:
+
+```bash
+which systemctl && whereis systemctl && man systemctl
+```
+
+* Search only text files (avoid binary noise):
+
+```bash
+find . -type f -exec file --mime {} \; | grep text | cut -d: -f1 | xargs grep -Hn "pattern"
+```
+
+---
+
+## Performance tips & safety
+
+* Narrow search path (`/home`, `./project`) instead of `/` when possible.
+* Use `-maxdepth` to avoid deep recursion.
+* Prefer `-exec ... +` or `-print0 | xargs -0` over `-exec ... \;` for many files.
+* Test destructive commands with `-print` first, then add `-delete`.
+* Redirect permission errors: `2>/dev/null` (or run as `sudo` if appropriate).
+* For very large codebases use `ripgrep (rg)` — much faster than `grep`.
+
+---
+
+## Short reference card
+
+`find`:
+
+```text
+find <path> -type f -name "*.ext" -mtime -7 -size +1M -perm 644 -user ash
+```
+
+`which` / `whereis` / `type`:
+
+```text
+which cmd
+whereis cmd
+type cmd
+```
+
+`grep`:
+
+```text
+grep -Rniw --include="*.txt" -H --color=auto "pattern" /path
+```
+
+---
+
+If you want, I can:
+
+* give **alias** suggestions to add to `~/.bashrc` for frequently used combos, or
+* produce a printable one-page cheatsheet PDF for your desk. Which would you like?
+
