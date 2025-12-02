@@ -178,6 +178,22 @@ file2
 dir3/
 file3
 
+
+---------------------------------------------------------
+#use password for encryption with gpg -symmetric: 
+
+>>> tar -czvf file.tar.gz path/to/folder && gpg -c file.tar.gz
+or
+>>> tar -czvf file.tar.gz path/to/folder &&  gpg --symmetric file.tar.gz
+
+*** for encryption with gpg use >>> gpg -c folder_file.tar or >>> gpg --symmetric file.tar.gz
+
+
+# decrypt with password : 
+
+>>> gpg -d file.tar.gz.gpg && tar -xzvf file.tar.gz
+
+
 -------------------------------------------------------
 -------------------------------------------------------
 #compress: 
