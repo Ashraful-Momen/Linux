@@ -4,4 +4,7 @@
 
 3. burn my window
 
-4. Net speed smplified. 
+4. Net speed simplified. 
+
+5. Clipboard Indicator.
+
