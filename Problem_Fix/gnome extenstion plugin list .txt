@@ -1,5 +1,7 @@
 1. compiz magic lamp effect
 
+2. Compiz windows effect
+
 2. blur my shell 
 
 3. burn my window
