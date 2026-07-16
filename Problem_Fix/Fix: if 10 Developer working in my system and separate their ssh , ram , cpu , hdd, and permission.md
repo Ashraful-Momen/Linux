@@ -824,7 +824,7 @@ systemctl status unattended-upgrades --no-pager | grep Active
 
 **Output should confirm all systems are operating as expected.** If any verification step fails, refer to the rollback procedures and troubleshooting section.
 
-========================================================= Same Note in BN Version ============================
+================================ Same Note in BN Version ============================
 # মাল্টি-ইউজার ডেভঅপ্স/গিটঅপ্স এনভায়রনমেন্ট সেটআপ গাইড (বাংলা)
 
 এই গাইডটি আপনার Kali Linux VPS-এ একটি নিরাপদ মাল্টি-ইউজার ডেভেলপমেন্ট এনভায়রনমেন্ট তৈরির জন্য সম্পূর্ণ ধাপে ধাপে নির্দেশনা প্রদান করবে। প্রতিটি অংশ পূর্ববর্তী অংশের উপর ভিত্তি করে তৈরি, যা একটি স্তরবদ্ধ নিরাপত্তা ব্যবস্থা নিশ্চিত করে।
