@@ -823,3 +823,852 @@ systemctl status unattended-upgrades --no-pager | grep Active
 ```
 
 **Output should confirm all systems are operating as expected.** If any verification step fails, refer to the rollback procedures and troubleshooting section.
+
+========================================================= Same Note in BN Version ============================
+# মাল্টি-ইউজার ডেভঅপ্স/গিটঅপ্স এনভায়রনমেন্ট সেটআপ গাইড (বাংলা)
+
+এই গাইডটি আপনার Kali Linux VPS-এ একটি নিরাপদ মাল্টি-ইউজার ডেভেলপমেন্ট এনভায়রনমেন্ট তৈরির জন্য সম্পূর্ণ ধাপে ধাপে নির্দেশনা প্রদান করবে। প্রতিটি অংশ পূর্ববর্তী অংশের উপর ভিত্তি করে তৈরি, যা একটি স্তরবদ্ধ নিরাপত্তা ব্যবস্থা নিশ্চিত করে।
+
+---
+
+## পার্ট ১ — প্রাথমিক সার্ভার প্রস্তুতি
+
+### ১.১ সিস্টেম প্যাকেজ আপডেট করুন
+
+সর্বশেষ নিরাপত্তা প্যাচ নিশ্চিত করতে সম্পূর্ণ আপডেটেড সিস্টেম দিয়ে শুরু করুন।
+
+```bash
+apt update && apt upgrade -y
+```
+
+**ব্যাখ্যা:** এই কমান্ড প্যাকেজ লিস্ট রিফ্রেশ করে এবং সব ইনস্টল করা প্যাকেজকে সর্বশেষ ভার্সনে আপগ্রেড করে। নেটওয়ার্কে সার্ভার এক্সপোজ করার আগে নিরাপত্তা প্যাচ অত্যন্ত গুরুত্বপূর্ণ।
+
+**ভেরিফিকেশন:**
+```bash
+apt list --upgradable
+```
+(আপগ্রেডযোগ্য কোনো প্যাকেজ দেখানো উচিত নয়)
+
+### ১.২ প্রয়োজনীয় টুলস ইনস্টল করুন
+
+```bash
+apt install -y openssh-server ufw fail2ban xfsprogs quota \
+    git curl wget software-properties-common \
+    apt-transport-https ca-certificates gnupg lsb-release
+```
+
+**ব্যাখ্যা:** প্রয়োজনীয় সব প্যাকেজ ইনস্টল করে:
+- `openssh-server` - রিমোট অ্যাক্সেসের জন্য SSH সার্ভার
+- `ufw` - ইউনকমপ্লিকেটেড ফায়ারওয়াল
+- `fail2ban` - ব্রুট-ফোর্স অ্যাটাক প্রতিরোধ
+- `xfsprogs` এবং `quota` - ডিস্ক কোটা ম্যানেজমেন্ট
+- `git` - ডেভঅপ্সের জন্য ভার্সন কন্ট্রোল
+- ডকারের প্রাক-প্রয়োজনীয় প্যাকেজ
+
+**ভেরিফিকেশন:**
+```bash
+dpkg -l openssh-server ufw fail2ban xfsprogs quota git | grep "^ii"
+```
+
+### ১.৩ টাইমজোন এবং হোস্টনেম কনফিগার করুন
+
+```bash
+timedatectl set-timezone UTC
+hostnamectl set-hostname devops-server
+echo "127.0.1.1 devops-server" >> /etc/hosts
+```
+
+---
+
+## পার্ট ২ — ইউজার তৈরি
+
+### ২.১ টিম মেম্বারদের জন্য ইউজার তৈরি করুন
+
+প্রতিটি টিম মেম্বারের জন্য আলাদা লিনাক্স ইউজার অ্যাকাউন্ট তৈরি করুন।
+
+```bash
+# উদাহরণ ইউজার তৈরি (প্রতিটি টিম মেম্বারের জন্য পুনরাবৃত্তি করুন)
+useradd -m -s /bin/bash -c "জন ডেভেলপার" johnd
+useradd -m -s /bin/bash -c "জেইন ইঞ্জিনিয়ার" janee
+```
+
+**ব্যাখ্যা:** `-m` হোম ডিরেক্টরি তৈরি করে, `-s` লগিন শেল সেট করে, `-c` পূর্ণ নাম যোগ করে।
+
+### ২.২ ইউজার SSH কী ডিরেক্টরি সেটআপ করুন
+
+```bash
+for user in johnd janee; do
+    mkdir -p /home/$user/.ssh
+    chmod 700 /home/$user/.ssh
+    chown $user:$user /home/$user/.ssh
+done
+```
+
+**ব্যাখ্যা:** `.ssh` ডিরেক্টরি সঠিক অনুমতি সহ তৈরি করে। `700` মানে শুধুমাত্র মালিক পড়তে, লিখতে এবং এক্সিকিউট করতে পারেন।
+
+### ২.৩ পাবলিক কী যোগ করুন (পাসওয়ার্ড লগিন বন্ধ করার আগে এটি করুন!)
+
+কী ফাইলের জন্য অস্থায়ী ডিরেক্টরি তৈরি করুন:
+
+```bash
+mkdir /tmp/ssh-keys
+```
+
+প্রতিটি ইউজারের জন্য তাদের পাবলিক কী `/tmp/ssh-keys/username.pub`-এ রাখুন, তারপর:
+
+```bash
+for user in johnd janee; do
+    cat /tmp/ssh-keys/${user}.pub >> /home/$user/.ssh/authorized_keys
+    chmod 600 /home/$user/.ssh/authorized_keys
+    chown $user:$user /home/$user/.ssh/authorized_keys
+done
+```
+
+**ভেরিফিকেশন:**
+```bash
+ls -la /home/*/.ssh/authorized_keys
+```
+
+---
+
+## পার্ট ৩ — SSH নিরাপত্তা
+
+### ৩.১ SSH কনফিগারেশন হার্ডেন করুন
+
+`/etc/ssh/sshd_config` সম্পাদনা করুন:
+
+```bash
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+vim /etc/ssh/sshd_config
+```
+
+এই সেটিংস প্রয়োগ করুন:
+
+```
+# স্বয়ংক্রিয় অ্যাটাক কমাতে ডিফল্ট পোর্ট পরিবর্তন
+Port 2222
+
+# রুট লগিন নিষ্ক্রিয় করুন
+PermitRootLogin no
+
+# SSH কী প্রয়োজন - পাসওয়ার্ড নিষ্ক্রিয় করুন
+PasswordAuthentication no
+PubkeyAuthentication yes
+ChallengeResponseAuthentication no
+
+# শুধুমাত্র নির্দিষ্ট ইউজার অনুমতি দিন (প্রতিটি টিম মেম্বার যোগ করুন)
+AllowUsers johnd janee
+
+# অতিরিক্ত হার্ডেনিং
+MaxAuthTries 3
+MaxSessions 2
+ClientAliveInterval 300
+ClientAliveCountMax 2
+```
+
+**মূল সেটিংসের ব্যাখ্যা:**
+- **Port 2222:** স্বয়ংক্রিয় SSH স্ক্যানিং কমায়
+- **PermitRootLogin no:** সরাসরি রুট অ্যাক্সেস প্রতিরোধ করে
+- **PasswordAuthentication no:** শুধুমাত্র কী - পাসওয়ার্ড ব্রুট-ফোর্স করা যেতে পারে
+- **AllowUsers:** স্পষ্টভাবে কে সংযোগ করতে পারে তা তালিকাভুক্ত করে
+
+**ভেরিফিকেশন:**
+```bash
+sshd -t
+```
+(কোনো ত্রুটি দেখানো উচিত নয়)
+
+### ৩.২ SSH রিস্টার্ট করুন
+
+```bash
+systemctl restart ssh
+systemctl enable ssh
+systemctl status ssh
+```
+
+### ৩.৩ ফায়ারওয়াল কনফিগার করুন (UFW)
+
+```bash
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow 2222/tcp
+ufw --force enable
+ufw status verbose
+```
+
+**ব্যাখ্যা:** ডিফল্টভাবে সব ইনকামিং বন্ধ, শুধুমাত্র কাস্টম পোর্টে SSH অনুমতি দিন।
+
+**ভেরিফিকেশন:**
+```bash
+ufw status
+ss -tlnp | grep 2222
+```
+
+### ৩.৪ Fail2Ban কনফিগার করুন
+
+```bash
+cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+vim /etc/fail2ban/jail.local
+```
+
+`[sshd]` সেকশন খুঁজে এইভাবে কনফিগার করুন:
+
+```
+[sshd]
+enabled = true
+port = 2222
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 3
+bantime = 3600
+findtime = 600
+```
+
+**ব্যাখ্যা:** 10 মিনিটের মধ্যে 3 বার ব্যর্থ চেষ্টার পর 1 ঘন্টার জন্য IP ব্যান করে।
+
+```bash
+systemctl restart fail2ban
+systemctl enable fail2ban
+```
+
+**ভেরিফিকেশন:**
+```bash
+fail2ban-client status sshd
+journalctl -u fail2ban -n 20
+```
+
+---
+
+## পার্ট ৪ — ডিস্ক কোটা
+
+### ৪.১ ফাইলসিস্টেমে কোটা সাপোর্ট সক্রিয় করুন
+
+প্রথমে আপনার ফাইলসিস্টেম টাইপ চেক করুন:
+
+```bash
+df -Th /home
+```
+
+যদি XFS ব্যবহার করেন (সাধারণ), `xfs_quota` ব্যবহার করুন। যদি ext4 ব্যবহার করেন, `edquota` ব্যবহার করুন।
+
+**XFS-এর জন্য:**
+
+```bash
+# কোটা সক্রিয় কিনা চেক করুন
+mount | grep /home
+
+# যদি সক্রিয় না হয়, কোটা সহ রিমাউন্ট করুন
+mount -o remount,uquota /home
+```
+
+**ext4-এর জন্য:**
+
+```bash
+# /etc/fstab-এ কোটা যোগ করুন
+vim /etc/fstab
+# /home-এর জন্য অপশনে 'usrquota,grpquota' যোগ করুন
+
+# উদাহরণ:
+# /dev/sda2 /home ext4 defaults,usrquota,grpquota 0 2
+
+# রিমাউন্ট করুন
+mount -o remount /home
+
+# কোটা ফাইল তৈরি করুন
+quotacheck -cug /home
+quotaon /home
+```
+
+### ৪.২ প্রতি ইউজারে ১০ জিবি ডিস্ক কোটা সেট করুন
+
+**XFS-এর জন্য:**
+
+```bash
+xfs_quota -x -c 'limit -u bsoft=10g bhard=10g johnd' /home
+xfs_quota -x -c 'limit -u bsoft=10g bhard=10g janee' /home
+```
+
+**ext4-এর জন্য:**
+
+```bash
+edquota johnd
+edquota janee
+```
+
+`soft` এবং `hard` কে `10485760` (10GB কিলোবাইটে) সেট করুন।
+
+**ভেরিফিকেশন:**
+```bash
+xfs_quota -x -c 'report -u' /home
+# অথবা ext4-এর জন্য:
+quota -v johnd
+```
+
+---
+
+## পার্ট ৫ — CPU এবং RAM সীমা
+
+### ৫.১ systemd রিসোর্স কন্ট্রোল বোঝা
+
+systemd cgroups v2 ব্যবহার করে রিসোর্স কন্ট্রোল করে। ইউজার সেশন `user.slice`-এর অধীনে সংগঠিত হয়।
+
+### ৫.২ systemd-এর মাধ্যমে প্রতি-ইউজার রিসোর্স সীমা তৈরি করুন
+
+**গুরুত্বপূর্ণ:** systemd প্রতি UID-এর জন্য cgroups তৈরি করে। সীমা সেট করতে আমরা `systemctl set-property` ব্যবহার করি ইউজারের slice-এ।
+
+প্রতিটি ইউজারের UID খুঁজুন:
+
+```bash
+id johnd
+id janee
+```
+
+উদাহরণ আউটপুট UID `1001` দেখায়। সীমা সেট করুন:
+
+```bash
+# CPU কোটা: 2 কোরে (একটি কোরের 200%)
+systemctl set-property user-1001.slice CPUQuota=200%
+systemctl set-property user-1001.slice CPUWeight=100
+
+# মেমরি সীমা: 4GB
+systemctl set-property user-1001.slice MemoryMax=4G
+systemctl set-property user-1001.slice MemoryHigh=3.5G
+```
+
+**ব্যাখ্যা:**
+- `CPUQuota=200%` - সর্বোচ্চ 2 CPU কোরে
+- `MemoryMax=4G` - হার্ড লিমিট (সীমা অতিক্রম করলে প্রক্রিয়া বন্ধ হবে)
+- `MemoryHigh=3.5G` - সফট লিমিট (বন্ধ হওয়ার আগে থ্রোটল হবে)
+
+**সব ইউজারের জন্য প্রয়োগ করুন (স্ক্রিপ্টেড):**
+
+```bash
+for user in johnd janee; do
+    uid=$(id -u $user)
+    slice="user-${uid}.slice"
+    systemctl set-property $slice CPUQuota=200%
+    systemctl set-property $slice MemoryMax=4G
+    systemctl set-property $slice MemoryHigh=3.5G
+    echo "$user (UID: $uid)-এর জন্য $slice-এ সীমা সেট করা হয়েছে"
+done
+```
+
+**ভেরিফিকেশন:**
+
+```bash
+systemd-cgtop
+systemd-cgls /sys/fs/cgroup/user.slice/
+systemctl show user-1001.slice | grep -E "(CPUQuota|MemoryMax)"
+```
+
+### ৫.৩ PAM-এর মাধ্যমে ulimit কনফিগার করুন
+
+`/etc/security/limits.conf` সম্পাদনা করুন:
+
+```bash
+vim /etc/security/limits.conf
+```
+
+যোগ করুন:
+
+```
+# প্রতি-ইউজার রিসোর্স সীমা
+*        soft    nproc       4096
+*        hard    nproc       8192
+*        soft    nofile      4096
+*        hard    nofile      8192
+*        soft    memlock     4096000
+*        hard    memlock     4096000
+```
+
+**ব্যাখ্যা:** অতিরিক্ত সুরক্ষা হিসেবে প্রতি ইউজারের প্রক্রিয়া এবং খোলা ফাইলের সংখ্যা সীমাবদ্ধ করে।
+
+**ভেরিফিকেশন:**
+```bash
+su - johnd -c "ulimit -a"
+```
+
+---
+
+## পার্ট ৬ — রুটলেস ডকার ইনস্টলেশন
+
+### ৬.১ ডকার ইঞ্জিন ইনস্টল করুন
+
+```bash
+# Docker-এর অফিসিয়াল GPG কী যোগ করুন
+curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# রিপোজিটরি যোগ করুন
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian bookworm stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# ডকার ইনস্টল করুন
+apt update
+apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
+### ৬.২ প্রতিটি ইউজারের জন্য রুটলেস ডকার কনফিগার করুন
+
+রুটলেস ডকার সম্পূর্ণরূপে রুট সুবিধা ছাড়াই চলে, যা নিরাপত্তা উন্নত করে।
+
+**প্রতিটি ইউজারের জন্য:**
+
+```bash
+# ইউজারে সুইচ করুন
+su - johnd
+
+# রুটলেস ডকার ইনস্টল করুন
+dockerd-rootless-setuptool.sh install
+
+# ইউজার সার্ভিস হিসেবে ডকার শুরু করুন
+export PATH=/usr/bin:$PATH
+systemctl --user start docker
+systemctl --user enable docker
+
+# লগআউটের পরেও ডকার চলমান রাখতে লিঙ্গারিং সক্রিয় করুন
+sudo loginctl enable-linger johnd
+
+# ডকার ক্লায়েন্ট কনফিগার করুন
+docker context use rootless
+# অথবা DOCKER_HOST সেট করুন
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+```
+
+**ইউজারের bashrc-এ যোগ করুন:**
+
+```bash
+echo 'export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock' >> /home/johnd/.bashrc
+echo 'export PATH=/usr/bin:$PATH' >> /home/johnd/.bashrc
+```
+
+**ব্যাখ্যা:**
+- রুটলেস ডকার `$XDG_RUNTIME_DIR`-এ সকেট তৈরি করে
+- স্টোরেজের জন্য `~/.local/share/docker` ব্যবহার করে
+- লগআউটের পরেও চলমান রাখতে `loginctl enable-linger` প্রয়োজন
+
+**ভেরিফিকেশন:**
+```bash
+su - johnd
+docker run hello-world
+docker ps
+```
+
+### ৬.৩ ডকার কম্পোজ ইনস্টল করুন (রুটলেস সামঞ্জস্যপূর্ণ)
+
+ডকার কম্পোজ v2 অতিরিক্ত কনফিগারেশন ছাড়াই রুটলেস ডকারের সাথে কাজ করে।
+
+```bash
+# ইতিমধ্যে docker-compose-plugin হিসেবে ইনস্টল করা আছে
+docker compose version
+```
+
+**প্রতিটি ইউজারের জন্য ভেরিফিকেশন:**
+```bash
+su - johnd
+echo 'version: "3.8"' > test-compose.yml
+echo 'services:' >> test-compose.yml
+echo '  test:' >> test-compose.yml
+echo '    image: alpine' >> test-compose.yml
+echo '    command: echo "Compose works"' >> test-compose.yml
+docker compose -f test-compose.yml up
+```
+
+---
+
+## পার্ট ৭ — নিরাপত্তা হার্ডেনিং
+
+### ৭.১ ফাইল পারমিশন
+
+নিশ্চিত করুন যে ইউজাররা অন্য ইউজারের হোম ডিরেক্টরিতে অ্যাক্সেস করতে পারে না:
+
+```bash
+chmod 750 /home/johnd
+chmod 750 /home/janee
+```
+
+**ব্যাখ্যা:** `750` মানে মালিক পড়তে/লিখতে/এক্সিকিউট করতে পারেন, গ্রুপ পড়তে/এক্সিকিউট করতে পারেন, অন্যদের কোনো অ্যাক্সেস নেই।
+
+**ভেরিফিকেশন:**
+```bash
+su - johnd -c "ls /home/janee 2>&1"
+# Permission denied দেখাতে হবে
+```
+
+### ৭.২ স্বয়ংক্রিয় নিরাপত্তা আপডেট
+
+```bash
+apt install -y unattended-upgrades
+dpkg-reconfigure --priority=low unattended-upgrades
+```
+
+"হ্যাঁ" নির্বাচন করুন স্বয়ংক্রিয় আপডেট সক্রিয় করতে।
+
+`/etc/apt/apt.conf.d/20auto-upgrades` কনফিগার করুন:
+
+```
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+```
+
+**ভেরিফিকেশন:**
+```bash
+systemctl status unattended-upgrades
+cat /var/log/unattended-upgrades/unattended-upgrades.log | tail -20
+```
+
+### ৭.৩ অডিটিং এবং লগিং
+
+**auditd ইনস্টল করুন:**
+
+```bash
+apt install -y auditd audispd-plugins
+```
+
+**অডিট রুলস কনফিগার করুন:**
+
+```bash
+vim /etc/audit/rules.d/audit.rules
+```
+
+যোগ করুন:
+
+```bash
+# SSH কনফিগারেশন পরিবর্তন মনিটর করুন
+-w /etc/ssh/sshd_config -p wa -k ssh_config
+
+# ইউজার তৈরি/মুছে ফেলা মনিটর করুন
+-w /etc/passwd -p wa -k user_mgmt
+-w /etc/shadow -p wa -k user_mgmt
+
+# sudoers মনিটর করুন (যদিও sudo নেই, তবুও গুরুত্বপূর্ণ)
+-w /etc/sudoers -p wa -k sudoers
+
+# ডকার মনিটর করুন
+-w /usr/bin/docker -p x -k docker
+```
+
+**auditd শুরু করুন:**
+
+```bash
+systemctl enable auditd
+systemctl start auditd
+```
+
+**ভেরিফিকেশন:**
+```bash
+auditctl -l
+ausearch -k ssh_config
+```
+
+### ৭.৪ লগ রোটেশন কনফিগার করুন
+
+`/etc/logrotate.d/secure-audit` তৈরি করুন:
+
+```
+/var/log/auth.log
+/var/log/fail2ban.log
+/var/log/audit/audit.log
+/var/log/unattended-upgrades/*.log
+{
+    weekly
+    rotate 4
+    compress
+    missingok
+    notifempty
+    create 0640 root adm
+}
+```
+
+**ভেরিফিকেশন:**
+```bash
+logrotate -d /etc/logrotate.conf
+```
+
+---
+
+## পার্ট ৮ — টেস্টিং এবং ভেরিফিকেশন
+
+### ৮.১ SSH অ্যাক্সেস টেস্ট
+
+```bash
+# SSH সংযোগ টেস্ট করুন
+ssh -p 2222 johnd@<server-ip> "echo 'SSH works!'"
+
+# শুধুমাত্র কী-ভিত্তিক অথেনটিকেশন ভেরিফাই করুন
+ssh -p 2222 johnd@<server-ip> -o PreferredAuthentications=password
+# ব্যর্থ হওয়া উচিত
+```
+
+**ভেরিফিকেশন:**
+```bash
+# SSH লগ চেক করুন
+tail -20 /var/log/auth.log
+
+# সক্রিয় SSH সেশন চেক করুন
+ss -tnp | grep 2222
+who
+```
+
+### ৮.২ রিসোর্স লিমিট টেস্টিং
+
+**CPU লিমিট টেস্ট:**
+
+```bash
+su - johnd
+# CPU-ইনটেনসিভ প্রক্রিয়া চালান
+stress --cpu 4 --timeout 30 &
+# CPU ব্যবহার দেখুন
+top -u johnd
+# 200% (2 কোরে) এর বেশি হওয়া উচিত নয়
+```
+
+**মেমরি লিমিট টেস্ট:**
+
+```bash
+su - johnd
+# 5GB মেমরি বরাদ্দ করার চেষ্টা করুন
+python3 -c "import sys; [sys.stdout.write('.' * (5*1024**3)) for _ in range(1)]"
+# প্রক্রিয়া বন্ধ বা থ্রোটল হওয়া উচিত
+```
+
+**ভেরিফিকেশন:**
+```bash
+systemd-cgtop
+journalctl -u user-1001.slice -n 20
+```
+
+### ৮.৩ ডকার টেস্ট
+
+```bash
+su - johnd
+docker run --rm alpine:latest echo "Docker works!"
+docker run --rm --memory=2g stress --cpu 1 --timeout 10
+docker compose version
+```
+
+### ৮.৪ ডিস্ক কোটা টেস্ট
+
+```bash
+su - johnd
+# 5GB ফাইল তৈরি করুন (সফল হওয়া উচিত)
+dd if=/dev/zero of=~/largefile bs=1M count=5000
+
+# 10GB এর বেশি করার চেষ্টা করুন (ব্যর্থ হওয়া উচিত)
+dd if=/dev/zero of=~/too_large bs=1M count=11000
+```
+
+**ভেরিফিকেশন:**
+```bash
+quota -v johnd
+# অথবা XFS-এর জন্য:
+xfs_quota -x -c 'report -u' /home
+```
+
+### ৮.৫ আইসোলেশন টেস্ট
+
+```bash
+# অন্য ইউজারের ফাইল অ্যাক্সেস করার চেষ্টা করুন
+su - johnd -c "ls /home/janee"
+# Permission denied দেখানো উচিত
+
+# প্রক্রিয়া দৃশ্যমানতা চেক করুন
+ps aux | grep janee
+# শুধুমাত্র johnd-এর মালিকানাধীন প্রক্রিয়া দেখানো উচিত
+```
+
+### ৮.৬ ফায়ারওয়াল টেস্ট
+
+```bash
+# বাহ্যিক মেশিন থেকে টেস্ট করুন
+nmap -p 2222 <server-ip>
+nmap -p 22 <server-ip>
+
+# fail2ban টেস্ট করুন
+# 3 বার ব্যর্থ SSH চেষ্টার পর IP ব্যান হওয়া উচিত
+ssh -p 2222 invalid@<server-ip>
+# ব্যান চেক করুন
+fail2ban-client status sshd
+```
+
+---
+
+## পার্ট ৯ — ব্যাকআপ এবং রোলব্যাক
+
+### ৯.১ কনফিগারেশন ব্যাকআপ স্ক্রিপ্ট
+
+`/usr/local/bin/backup-config.sh` তৈরি করুন:
+
+```bash
+#!/bin/bash
+BACKUP_DIR="/root/config-backups"
+DATE=$(date +%Y%m%d_%H%M%S)
+
+mkdir -p $BACKUP_DIR
+
+# গুরুত্বপূর্ণ কনফিগারেশন ব্যাকআপ
+tar -czf $BACKUP_DIR/config_$DATE.tar.gz \
+    /etc/ssh/ \
+    /etc/fail2ban/ \
+    /etc/ufw/ \
+    /etc/security/ \
+    /etc/audit/ \
+    /etc/systemd/system/ \
+    /etc/logrotate.d/ \
+    /etc/apt/apt.conf.d/20auto-upgrades \
+    /etc/fstab
+
+# ইউজার SSH কী ব্যাকআপ
+tar -czf $BACKUP_DIR/ssh_keys_$DATE.tar.gz \
+    /home/*/.ssh/authorized_keys
+
+# ইউজার এবং UID-এর ডেটাবেজ
+getent passwd | grep -E "^(johnd|janee)" > $BACKUP_DIR/users_$DATE.txt
+
+echo "ব্যাকআপ সম্পন্ন: $BACKUP_DIR/config_$DATE.tar.gz"
+```
+
+**এক্সিকিউটেবল করুন এবং শিডিউল করুন:**
+
+```bash
+chmod +x /usr/local/bin/backup-config.sh
+(crontab -l 2>/dev/null; echo "0 2 * * * /usr/local/bin/backup-config.sh") | crontab -
+```
+
+### ৯.২ রোলব্যাক পদ্ধতি
+
+**SSH কনফিগারেশন পুনরুদ্ধার:**
+
+```bash
+# SSH বন্ধ করুন
+systemctl stop ssh
+
+# ব্যাকআপ পুনরুদ্ধার করুন
+cp /etc/ssh/sshd_config.backup /etc/ssh/sshd_config
+
+# SSH পুনরায় শুরু করুন
+systemctl start ssh
+systemctl status ssh
+```
+
+**ইউজার কোটা পুনরুদ্ধার:**
+
+```bash
+# ব্যাকআপ থেকে পুনরুদ্ধার করুন
+edquota -p johnd janee
+# অথবা XFS-এর জন্য:
+xfs_quota -x -c 'limit -u bsoft=10g bhard=10g janee' /home
+```
+
+**systemd রিসোর্স লিমিট পুনরুদ্ধার:**
+
+```bash
+# ডিফল্টে রিসেট করুন
+systemctl set-property user-1001.slice CPUQuota=
+systemctl set-property user-1001.slice MemoryMax=
+# অথবা ফাইল থেকে পুনরুদ্ধার:
+systemctl import-environment
+```
+
+### ৯.৩ ডিজাস্টার রিকভারি প্ল্যান
+
+1. **SSH লকআউট রিকভারি:**
+   - VPS কনসোল অ্যাক্সেস ব্যবহার করুন (KVM/IPMI)
+   - অথবা আউট-অফ-ব্যান্ড অ্যাক্সেসের জন্য হোস্টিং প্রদানকারীর সাথে যোগাযোগ করুন
+   - ব্যাকআপ থেকে SSH কনফিগারেশন পুনরুদ্ধার করুন
+
+2. **ইউজার ডেটা রিকভারি:**
+   - `/home` ডিরেক্টরির নিয়মিত ব্যাকআপ
+   - ব্যাকআপ সার্ভারের বাইরে সংরক্ষণ করুন (S3, ইত্যাদি)
+
+3. **সিস্টেম রোলব্যাক:**
+   - পূর্ববর্তী কনফিগারেশন সংরক্ষণ করুন
+   - systemd ইউনিটের জন্য `systemctl revert` ব্যবহার করুন
+
+**রোলব্যাকের পর ভেরিফিকেশন:**
+```bash
+# সব সিস্টেম টেস্ট করুন
+ssh -p 2222 johnd@<server-ip> "echo OK"
+docker ps
+quota -v johnd
+systemd-cgtop
+```
+
+---
+
+## গুরুত্বপূর্ণ নিরাপত্তা নিয়ন্ত্রণের সারাংশ
+
+| নিয়ন্ত্রণ | বাস্তবায়ন | ভেরিফিকেশন |
+|-----------|------------|-------------|
+| SSH নিরাপত্তা | পোর্ট 2222, রুট নয়, শুধুমাত্র কী | `sshd -t`, `ufw status` |
+| ডিস্ক কোটা | প্রতি ইউজার 10GB | `quota -v user` |
+| CPU সীমা | 2 কোরে (200% কোটা) | `systemd-cgtop` |
+| মেমরি সীমা | প্রতি ইউজার 4GB | `systemd-cgtop` |
+| ইউজার আইসোলেশন | 750 হোম পারমিশন, cgroups | `ls /home/other` |
+| ডকার নিরাপত্তা | প্রতি ইউজার রুটলেস | `docker info` |
+| ব্রুট ফোর্স | Fail2Ban | `fail2ban-client status` |
+| ফায়ারওয়াল | UFW ডিফল্ট ডেনি | `ufw status` |
+| অডিটিং | auditd | `auditctl -l` |
+| আপডেট | অনঅ্যাটেন্ডেড-আপগ্রেড | `systemctl status unattended-upgrades` |
+
+---
+
+## সম্পূর্ণ ভেরিফিকেশনের জন্য চূড়ান্ত কমান্ড
+
+```bash
+#!/bin/bash
+echo "=== SSH নিরাপত্তা ==="
+sshd -t && echo "SSH কনফিগ OK"
+ufw status | grep 2222
+fail2ban-client status sshd
+
+echo -e "\n=== রিসোর্স লিমিট ==="
+for user in johnd janee; do
+    uid=$(id -u $user)
+    echo "$user (UID $uid):"
+    systemctl show user-${uid}.slice | grep -E "(CPUQuota|MemoryMax|MemoryHigh)"
+done
+
+echo -e "\n=== ডিস্ক কোটা ==="
+quota -v johnd
+quota -v janee
+
+echo -e "\n=== ইউজার আইসোলেশন ==="
+su - johnd -c "ls /home/janee 2>&1 | head -1"
+su - janee -c "ls /home/johnd 2>&1 | head -1"
+
+echo -e "\n=== ডকার স্ট্যাটাস ==="
+su - johnd -c "docker info | grep -E '(Server Version|Rootless)'"
+su - janee -c "docker info | grep -E '(Server Version|Rootless)'"
+
+echo -e "\n=== অডিটিং ==="
+auditctl -l | wc -l
+systemctl status auditd --no-pager | grep Active
+
+echo -e "\n=== অটো আপডেট ==="
+systemctl status unattended-upgrades --no-pager | grep Active
+```
+
+**আউটপুট সব সিস্টেম সঠিকভাবে কাজ করছে তা নিশ্চিত করবে।** যদি কোনো ভেরিফিকেশন ধাপ ব্যর্থ হয়, রোলব্যাক পদ্ধতি এবং ট্রাবলশুটিং বিভাগ দেখুন।
+
+---
+
+## ট্রাবলশুটিং টিপস
+
+1. **SSH সংযোগ করতে না পারলে:**
+   - VPS কনসোল ব্যবহার করে লগিন করুন
+   - `systemctl status ssh` চেক করুন
+   - `ufw status` চেক করুন
+
+2. **ডকার কাজ না করলে:**
+   - `systemctl --user status docker` চেক করুন
+   - `loginctl enable-linger username` ভেরিফাই করুন
+   - `$XDG_RUNTIME_DIR` সেট আছে কিনা চেক করুন
+
+3. **কোটা কাজ না করলে:**
+   - ফাইলসিস্টেম কোটা সাপোর্ট করে কিনা চেক করুন
+   - `quotaon -v /home` চালান
+
+4. **রিসোর্স লিমিট কাজ না করলে:**
+   - cgroups v2 সক্রিয় কিনা চেক করুন
+   - `systemctl show user-*.slice` চালান
