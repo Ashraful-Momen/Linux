@@ -1,5 +1,24 @@
-তোমার আগের সব note মিলিয়ে **একটা complete, clean, copy-paste-ready `uv + Python` cheat sheet** নিচে দিলাম। এতে Python version install/switch, project, venv, `uv pip`, `uv add`, `requirements.txt`, run, update—কিছু বাদ রাখিনি।
+```bash
+uv python install 3.14
 
+mkdir my-project
+cd my-project
+
+uv init --python 3.14
+uv python pin 3.14
+uv venv
+
+source .venv/bin/ativate
+
+python --version
+
+deativate
+
+uv add fastapi
+uv add "uvicorn[standard]"
+
+uv run uvicorn main:app --reload
+```
 ```bash
 # ============================================================
 # UV + PYTHON COMPLETE CHEAT SHEET
