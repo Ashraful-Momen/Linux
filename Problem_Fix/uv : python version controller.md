@@ -1,3 +1,4 @@
+###Shortcut:
 ```bash
 uv python install 3.14
 
