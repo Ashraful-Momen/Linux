@@ -1,3 +1,235 @@
+# shortcut: Create a new project directory
+mkdir project-b
+
+# shortcut: Enter the project directory
+cd project-b
+
+# shortcut: Pin Python 3.14 for this project
+uv python pin 3.14
+
+# shortcut: Create a virtual environment using the pinned Python version
+uv venv
+
+# shortcut: Activate the project's virtual environment
+source .venv/bin/activate
+
+# shortcut: Check the active Python version
+python --version
+
+# shortcut: Exit/deactivate the virtual environment
+deactivate
+
+===============================================================================================================
+
+# ============================================================
+# UV PYTHON PROJECT SHORTCUT NOTE
+# ============================================================
+
+# shortcut: Install any Python version with uv
+# Example: Install Python 3.13
+uv python install 3.13
+
+# shortcut: Install another Python version
+uv python install 3.14
+
+# shortcut: Install multiple Python versions
+uv python install 3.10 3.11 3.12 3.13 3.14
+
+# shortcut: List all Python versions managed/available by uv
+uv python list
+
+
+# ============================================================
+# CREATE NEW PROJECT
+# ============================================================
+
+# shortcut: Create a new project directory
+mkdir project-b
+
+# shortcut: Enter the project directory
+cd project-b
+
+# shortcut: Initialize a uv project
+uv init
+
+
+# ============================================================
+# PYTHON VERSION MANAGEMENT
+# ============================================================
+
+# shortcut: Pin Python 3.14 for this project
+uv python pin 3.14
+
+# shortcut: Pin Python 3.13 for this project
+uv python pin 3.13
+
+# shortcut: Check which Python version is pinned
+cat .python-version
+
+# shortcut: Show the Python version selected by uv
+uv run python --version
+
+
+# ============================================================
+# VIRTUAL ENVIRONMENT
+# ============================================================
+
+# shortcut: Create a virtual environment using the pinned Python
+uv venv
+
+# shortcut: Create a venv with a specific Python version
+uv venv --python 3.13
+
+# shortcut: Activate the project's virtual environment
+source .venv/bin/activate
+
+# shortcut: Check the active Python version
+python --version
+
+# shortcut: Check which Python executable is active
+which python
+
+# shortcut: Exit/deactivate the virtual environment
+deactivate
+
+
+# ============================================================
+# PYTHON + UV WITHOUT ACTIVATING VENV
+# ============================================================
+
+# shortcut: Run Python using the project's uv environment
+uv run python
+
+# shortcut: Check Python version without activating .venv
+uv run python --version
+
+# shortcut: Run a Python script using the project's environment
+uv run python main.py
+
+
+# ============================================================
+# PIP WITH UV
+# ============================================================
+
+# shortcut: Install a package using uv's pip interface
+uv pip install requests
+
+# shortcut: Install multiple packages
+uv pip install requests flask django
+
+# shortcut: Install a specific package version
+uv pip install requests==2.32.3
+
+# shortcut: Upgrade a package
+uv pip install --upgrade requests
+
+# shortcut: Uninstall a package
+uv pip uninstall requests
+
+# shortcut: Show installed packages
+uv pip list
+
+# shortcut: Show information about a package
+uv pip show requests
+
+# shortcut: Export installed packages to requirements.txt
+uv pip freeze > requirements.txt
+
+# shortcut: Install packages from requirements.txt
+uv pip install -r requirements.txt
+
+
+# ============================================================
+# RECOMMENDED UV PROJECT DEPENDENCY MANAGEMENT
+# ============================================================
+
+# shortcut: Add a project dependency
+uv add requests
+
+# shortcut: Add multiple dependencies
+uv add requests flask
+
+# shortcut: Add a specific version
+uv add "requests==2.32.3"
+
+# shortcut: Remove a dependency
+uv remove requests
+
+# shortcut: Update project dependencies
+uv lock --upgrade
+
+# shortcut: Sync the project's environment with pyproject.toml/uv.lock
+uv sync
+
+
+# ============================================================
+# RUN PROJECT
+# ============================================================
+
+# shortcut: Run the project using uv
+uv run python main.py
+
+# shortcut: Run any command inside the project environment
+uv run <command>
+
+
+# ============================================================
+# CHANGE PYTHON VERSION FOR AN EXISTING PROJECT
+# ============================================================
+
+# shortcut: Change project Python version
+uv python pin 3.13
+
+# shortcut: Recreate the virtual environment with the new Python
+rm -rf .venv
+uv venv
+
+# shortcut: Activate the new environment
+source .venv/bin/activate
+
+# shortcut: Verify Python version
+python --version
+
+
+# ============================================================
+# EXAMPLE: NEW PYTHON 3.13 PROJECT
+# ============================================================
+
+# shortcut: Create project
+mkdir project-c
+cd project-c
+
+# shortcut: Initialize uv project
+uv init
+
+# shortcut: Use Python 3.13
+uv python pin 3.13
+
+# shortcut: Create Python 3.13 virtual environment
+uv venv
+
+# shortcut: Activate virtual environment
+source .venv/bin/activate
+
+# shortcut: Check Python version
+python --version
+
+# shortcut: Install packages
+uv pip install requests fastapi
+
+# shortcut: Run the application
+uv run python main.py
+
+# shortcut: Deactivate virtual environment
+deactivate
+
+
+
+
+
+=====================================================================
+
+
 অবশ্যই। Ubuntu-তে **Python 3.14 + `uv` + virtual environment + pip/requirements.txt**—সবকিছু cleanভাবে manage করার জন্য নিচের workflow-টা follow করতে পারো।
 
 ## 1. `uv` install করো
