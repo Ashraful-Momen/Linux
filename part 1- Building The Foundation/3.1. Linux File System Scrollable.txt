@@ -1,0 +1,85 @@
+================================================================================
+                           LINUX SYSTEM CHEAT SHEET
+================================================================================
+
+1. THE LINUX FILE SYSTEM HIERARCHY
+--------------------------------------------------------------------------------
+                     / (The Root Directory)
+                     │
+  ┌───────────┬──────┴────┬───────────┬───────────┬───────────┐
+  │           │           │           │           │           │
+/bin        /etc        /home       /sbin       /tmp        /root
+  │           │           │           │           │           │
+  │           │           │           │           │           └─ Superuser Home
+  │           │           │           │           └─ Temporary Files
+  │           │           │           └─ System Binaries (Root admin apps)
+  │           │           └─ Regular Users' Home Directories
+  │           └─ System Configuration Files (Like settings for apps)
+  └─ Essential User Binaries (Standard command line tools)
+
+
+2. LINUX COMMAND SYNTAX (Case-Sensitive)
+--------------------------------------------------------------------------------
+* Linux commands are strictly Case-Sensitive (e.g., 'ls' is not 'LS').
+* Structure: command  [option]  [argument]
+* Example:   ls       -arl      /Desktop
+             └─(cmd)  └─(opt)   └─(arg)
+
+[Detailed Explanation of the Example Command]:
+Command: ls -arl /Desktop
+  ├── ls       --> (Command) Lists directory contents.
+  ├── -arl     --> (Combined Options/Flags):
+  │     ├── -a --> All (Shows all files, including hidden files starting with a dot '.')
+  │     ├── -r --> Reverse (Reverses the order of the sort)
+  │     └── -l --> Long listing format (Shows file permissions, size, owner, and date)
+  └── /Desktop --> (Argument) The target directory you want to inspect.
+
+
+3. FILE & DIRECTORY COMMANDS
+--------------------------------------------------------------------------------
+pwd                  | Show Current Directory | Displays absolute path of current folder
+mkdir [dir_name]     | Make Directory         | Creates a brand new folder
+touch [file_name]    | Create File            | Creates an empty file or updates timestamp
+ls                   | List Contents          | Shows the files and folders inside a directory
+cat [file_name]      | View File Contents     | Displays everything inside a file at once
+less [file_name]     | Interactive Viewer     | Opens file with scrollable view (good for big files)
+head [file_name]     | View Top Lines         | Displays the first 10 lines of a file by default
+tail [file_name]     | View Bottom Lines      | Displays the last 10 lines of a file by default
+
+[Special Tail Options]:
+tail -n 20 [file]    | Custom Line Count      | Shows the last 20 lines (or any specified number)
+tail -f [file]       | Live Follow Mode       | Monitors file in real-time (great for system logs)
+tail -c 50 [file]    | Byte Count Output      | Outputs exactly the last 50 bytes of data
+
+
+4. NAVIGATION COMMANDS (Changing Directories)
+--------------------------------------------------------------------------------
+cd .                 | Stay in Current Dir    | Points to the folder you are currently in
+cd ..                | Move Back              | Moves one level up to the parent directory
+cd ~                 | Regular User Home      | Jumps directly to your user folder (e.g., /home/username)
+cd ~root             | Root Home Directory    | Jumps directly to the superuser root home folder
+cd /                 | Go to System Root      | Moves straight to the base root directory '/'
+
+
+5. BASH HISTORY MANAGEMENT
+--------------------------------------------------------------------------------
+* Location: Bash saves user command history inside hidden files.
+* Local File: ~/.bash_history (Maps out previously run terminal tasks per user)
+
+[Example Inspection Trace]:
+$ ls -l ~/.bash_history
+-rw------- 1 ashraful ashraful 70 Jun 30 2024 /home/ashraful/.bash_history
+
+$ cd ~
+$ pwd
+/home/ashraful
+
+$ cat .bash_history
+whoami
+htop
+ifconfig
+
+[Viewing History via Terminal]:
+history              | Show Command History   | Lists all recorded shell inputs saved in active buffer
+sudo cat ~/.bash_history | Superuser History Scan | Inspects root logs or force-reads raw active file records
+================================================================================
